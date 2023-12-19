@@ -21,10 +21,11 @@ import {router} from './routes/users';
 const app = express();
 
 dotenv.config();
+app.use(express.json());
 
 const port = process.env.PORT;
  
-app.use(router);
+app.use('/api', router);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
