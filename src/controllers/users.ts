@@ -18,8 +18,8 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
     res.send(users);
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: "Error" });
-  }
+    res.status(500);
+  };
 };
 
 export const addUser = async (req: Request, res: Response): Promise<void> => {
@@ -43,8 +43,23 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
       res
         .status(400)
         .json({ message: "Error: Validation failed", errors: error.errors });
-    } else { 
+    } else if (
+      error.name === "SequelizeUniqueConstraintError" &&
+      error.errors?.length > 0) {
+
+      const uniqueError = error.errors.find((err: any) => err.type === "unique violation" && err.path === "email");
+
+      if (uniqueError) {
+        res
+          .status(400)
+          .json({ message: "Error: Email already exists", field: "email" });
+      } else {
+        res
+          .status(400)
+          .json({ message: "Error: Validation failed", errors: error.errors });
+      }
+    } else {
       res.status(500).json({ message: "Error: Failed to create user" });
     }
-  }
+  };
 };
