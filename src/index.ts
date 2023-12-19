@@ -11,6 +11,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { Request, Response } from "express";
+import sequelize from './db/connection';
+
 
 
 
@@ -20,7 +22,7 @@ dotenv.config();
 
 const port = process.env.PORT;
  
- 
+
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
@@ -29,3 +31,5 @@ app.get("/", (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server listening on ${port}`);
 });
+
+console.log(sequelize)
