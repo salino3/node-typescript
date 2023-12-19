@@ -7,6 +7,9 @@
 // npm install sequelize-cli --save-dev
 // npx sequelize-cli init
 // npm i dotenv
+// npm install uuid
+// npm i --save-dev @types/uuid
+
 
 import express from 'express';
 import dotenv from 'dotenv';

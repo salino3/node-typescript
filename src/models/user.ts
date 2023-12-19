@@ -1,13 +1,12 @@
-// models/UserModel.ts
 
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../db/connection";
+import { v4 as uuidv4 } from "uuid";
 
-// Definición de ENUM para el género
 type GenderType = "female" | "male" | "other" | "prefer not to say";
 
 class UserModel extends Model {
-  public id!: number;
+  public id!: string;
   public name!: string;
   public surname!: string;
   public email!: string;
@@ -22,6 +21,12 @@ class UserModel extends Model {
 
 UserModel.init(
   {
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      allowNull: false,
+      defaultValue: () => uuidv4(), 
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
