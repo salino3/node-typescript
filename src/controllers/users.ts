@@ -30,10 +30,12 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
     return;
   };
 
-  try {
-    const newUser = await UserModel.create(user);
+  const isAdult = user.age >= 18 ? true : false;
 
-    res.status(201).json(newUser);
+  try {
+    const newUser = await UserModel.create({...user, isAdult: isAdult});
+
+    res.status(201).json(newUser); 
   } catch (error: any) {
     console.error(error);
 
@@ -41,7 +43,7 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
       res
         .status(400)
         .json({ message: "Error: Validation failed", errors: error.errors });
-    } else {
+    } else { 
       res.status(500).json({ message: "Error: Failed to create user" });
     }
   }
