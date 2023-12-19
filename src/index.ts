@@ -7,29 +7,31 @@
 // npm install sequelize-cli --save-dev
 // npx sequelize-cli init
 // npm i dotenv
+// npm install uuid
+// npm i --save-dev @types/uuid
+
 
 import express from 'express';
 import dotenv from 'dotenv';
 import { Request, Response } from "express";
-import sequelize from './db/connection';
-
+import {router} from './routes/users';
 
 
 
 const app = express();
 
 dotenv.config();
+app.use(express.json());
 
 const port = process.env.PORT;
  
-
+app.use('/api', router);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
 
 app.listen(port, () => {
-  console.log(`Server listening on ${port}`);
+  console.log(`Server listening on port ${port}`);
 });
 
-// console.log(sequelize)
