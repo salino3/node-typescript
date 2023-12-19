@@ -63,3 +63,41 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
     }
   };
 };
+
+
+export const updateUser = async (req: Request, res: Response): Promise<void> => {
+
+   const id = req.params.id;
+   const userData = req.body; 
+
+   try {
+    
+    const existingUser = await UserModel.findByPk(id);
+
+    if (!existingUser) {
+        res.status(404).json({ message: "User not found" });
+        return;
+    };
+
+
+        await existingUser.update({ ...userData, isAdult: userData.age >= 18 });
+
+
+    res.status(200).json({message: 'User update successfully'});
+
+   } catch (error: any) {
+    console.error(error);
+    
+       if (error.name === "SequelizeValidationError") {
+         res
+           .status(400)
+           .json({ message: "Error: Validation failed", errors: error.errors });
+       } else {
+         res.status(500).json({ message: "Error: Failed to update user" });
+       }
+   }
+
+
+  
+
+};
