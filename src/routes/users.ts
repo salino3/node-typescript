@@ -1,12 +1,14 @@
 import express from "express";
-import { addUser, getUsers, updateUser } from "../controllers/users";
+import { addUser, deleteUser, getUsers, updateUser } from "../controllers/users";
 
-const router = express.Router();
+const routerUsers = express.Router();
 
-router.get("/users", getUsers);
+routerUsers.get("/users", getUsers);
 
-router.post("/users", addUser);
+routerUsers.post("/users", addUser);
 
-router.put("/users/:id", updateUser);
+routerUsers.put("/users/:id", updateUser);
 
-export {router}
+routerUsers.delete("/users/:id", deleteUser);
+
+export {routerUsers}

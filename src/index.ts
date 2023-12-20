@@ -14,7 +14,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { Request, Response } from "express";
-import {router} from './routes/users';
+import {routerUsers} from './routes/users';
 
 
 
@@ -25,7 +25,7 @@ app.use(express.json());
 
 const port = process.env.PORT;
  
-app.use('/api', router);
+app.use('/api', routerUsers);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
