@@ -29,7 +29,6 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
     res.status(400).json({ message: "Error: Invalid user data" });
     return;
   };
-
   const isAdult = user.age >= 18 ? true : false;
 
   try {
@@ -64,6 +63,26 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
   };
 };
 
+export const getOne = async (req: Request, res: Response): Promise<void> => {
+
+ const id = req.params.id;
+
+ try {
+  
+   const user = await UserModel.findByPk(id);
+
+   if(!user) {
+    res.status(404).json({message: "User not found"});
+    return;
+   };
+
+   res.status(200).json(user);
+ } catch (error) {
+  console.error(error);
+  res.status(500);
+ };
+};
+
 
 export const updateUser = async (req: Request, res: Response): Promise<void> => {
 
@@ -79,9 +98,7 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
         return;
     };
 
-
-        await existingUser.update({ ...userData, isAdult: userData.age >= 18 });
-
+      await existingUser.update({ ...userData, isAdult: userData.age >= 18 });
 
     res.status(200).json({message: 'User update successfully'});
 
@@ -95,9 +112,24 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
        } else {
          res.status(500).json({ message: "Error: Failed to update user" });
        }
-   }
+   };
+};
 
+export const deleteUser = async (req: Request, res: Response): Promise<void> => {
 
-  
+  const id = req.params.id;
 
+  try {
+    
+    await UserModel.destroy({
+      where: {
+          id: id
+        },
+      });
+
+      res.status(200).json({message: "User deleted successfully"})
+  } catch (error) {
+    console.error(error);
+    res.status(500);
+  };
 };
