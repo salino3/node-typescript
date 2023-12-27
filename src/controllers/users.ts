@@ -15,7 +15,7 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
   }
 
   try {
-    res.send(users);
+    res.json(users);
   } catch (error) {
     console.error(error);
     res.status(500);
