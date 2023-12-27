@@ -9,6 +9,8 @@
 // npm i dotenv
 // npm install uuid
 // npm i --save-dev @types/uuid
+// npm install bcrypt jsonwebtoken
+// npm install @types/bcrypt @types/jsonwebtoken --save-dev
 
 
 import express, { Request, Response } from "express";

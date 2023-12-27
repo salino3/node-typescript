@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import UserModel from "../models/user";
+import { hashPassword, comparePasswords, generateToken, verifyToken  } from '../middlewares';
 
 
 
