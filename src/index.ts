@@ -15,7 +15,8 @@
 
 import express, { Request, Response } from "express";
 import dotenv from 'dotenv';
-import {routerUsers} from './routes/users';
+import { authRouter } from "./routes/auth-user";
+import { routerUsers } from "./routes/users";
 import { tokenAuthMiddleware } from "./middlewares";
 
 
@@ -25,12 +26,14 @@ dotenv.config();
 app.use(express.json());
 
 const port = process.env.PORT;
- 
-app.use('/api', tokenAuthMiddleware, routerUsers);
 
+app.use("/api", tokenAuthMiddleware, authRouter);
+ 
+app.use("/api", tokenAuthMiddleware, routerUsers);
+ 
 app.get("/", tokenAuthMiddleware, (req: Request, res: Response) => {
   res.send("Hello World!");
-});
+}); 
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

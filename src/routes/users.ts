@@ -13,4 +13,4 @@ routerUsers.put("/users/:id", updateUser);
 
 routerUsers.delete("/users/:id", deleteUser);
 
-export {routerUsers} 
+export {routerUsers}; 
