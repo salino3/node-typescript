@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import UserModel from "../models/user";
+import { hashPassword, comparePasswords, generateToken, verifyToken  } from '../middlewares';
 
 
 
@@ -15,7 +16,7 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
   }
 
   try {
-    res.send(users);
+    res.json(users);
   } catch (error) {
     console.error(error);
     res.status(500);
@@ -29,10 +30,17 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
     res.status(400).json({ message: "Error: Invalid user data" });
     return;
   };
+
+  const hashedPassword = await hashPassword(user.password);
+
   const isAdult = user.age >= 18 ? true : false;
 
   try {
-    const newUser = await UserModel.create({...user, isAdult: isAdult});
+    const newUser = await UserModel.create({
+      ...user,
+      password: hashedPassword,
+      isAdult,
+    });
 
     res.status(201).json(newUser); 
   } catch (error: any) {
@@ -90,18 +98,34 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
    const userData = req.body; 
 
    try {
-    
-    const existingUser = await UserModel.findByPk(id);
+     const existingUser = await UserModel.findByPk(id);
 
-    if (!existingUser) {
-        res.status(404).json({ message: "User not found" });
-        return;
-    };
+     if (!existingUser) {
+       res.status(404).json({ message: "User not found" });
+       return;
+     };
 
-      await existingUser.update({ ...userData, isAdult: userData.age >= 18 });
+     // Verify if new email is already in use
+     if (userData.email !== existingUser.email) {
+       const userWithNewEmail = await UserModel.findOne({
+         where: { email: userData.email },
+       });
 
-    res.status(200).json({message: 'User update successfully'});
+       if (userWithNewEmail) {
+         res.status(400).json({ message: "Error: Email is already in use" });
+         return;
+       };
+     };
 
+     // Encrypting password of req.body
+     if (userData.password) {
+       const hashedPassword = await hashPassword(userData.password);
+       userData.password = hashedPassword;
+     };
+
+     await existingUser.update({ ...userData, isAdult: userData.age >= 18 });
+
+     res.status(200).json({ message: "User update successfully" });
    } catch (error: any) {
     console.error(error);
     

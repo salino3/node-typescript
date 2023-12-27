@@ -9,13 +9,14 @@
 // npm i dotenv
 // npm install uuid
 // npm i --save-dev @types/uuid
+// npm install bcrypt jsonwebtoken
+// npm install @types/bcrypt @types/jsonwebtoken --save-dev
 
 
-import express from 'express';
+import express, { Request, Response } from "express";
 import dotenv from 'dotenv';
-import { Request, Response } from "express";
 import {routerUsers} from './routes/users';
-
+import { tokenAuthMiddleware } from "./middlewares";
 
 
 const app = express();
@@ -25,9 +26,9 @@ app.use(express.json());
 
 const port = process.env.PORT;
  
-app.use('/api', routerUsers);
+app.use('/api', tokenAuthMiddleware, routerUsers);
 
-app.get("/", (req: Request, res: Response) => {
+app.get("/", tokenAuthMiddleware, (req: Request, res: Response) => {
   res.send("Hello World!");
 });
 
