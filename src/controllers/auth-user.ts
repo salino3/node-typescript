@@ -9,7 +9,7 @@ export const userLogin = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
 
-    // Verificar si el usuario existe en la base de datos
+    // Verify if the user exist
     const user = await UserModel.findOne({ where: { email } });
 
     if (!user) {
@@ -17,7 +17,7 @@ export const userLogin = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // Comparar la contraseña proporcionada con la almacenada en la base de datos
+    // Compare password in database
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
@@ -25,10 +25,10 @@ export const userLogin = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // Generar un token JWT con la información del usuario
+    // Generate token JWT with user information
     const token = generateToken({ userId: user.id, email: user.email });
 
-    // Configurar la cookie con el token
+    // Token configuration
     res.cookie("token", token, {
       httpOnly: true, // Not reachable with Javascript code
       secure: process.env.NODE_ENV === "production", // Establish at true in 'production' for use HTTPS
