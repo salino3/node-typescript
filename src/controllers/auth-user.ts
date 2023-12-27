@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import UserModel from "../models/user";
-import { generateToken } from "../middlewares";
+import { generateToken, revokedTokens } from "../middlewares";
 
 
 export const userLogin = async (req: Request, res: Response): Promise<void> => {
@@ -29,7 +28,7 @@ export const userLogin = async (req: Request, res: Response): Promise<void> => {
     const token = generateToken({ userId: user.id, email: user.email });
 
     // Token configuration
-    res.cookie("token", token, {
+    res.cookie("my-token", token, {
       httpOnly: true, // Not reachable with Javascript code
       secure: process.env.NODE_ENV === "production", // Establish at true in 'production' for use HTTPS
       maxAge: 2 * 60 * 60 * 1000, // Time of expiration de expiración in milliseconds (2 hours)
@@ -45,8 +44,23 @@ export const userLogin = async (req: Request, res: Response): Promise<void> => {
 
 
 export const userLogout = async ( req: Request, res: Response ): Promise<void> => {
-  // Delete token
-  res.clearCookie("token");
+    try {
 
-  res.status(200).json({ message: "Logout successful" });
+    const token = req.cookies["my-token"];
+
+    if (token) {
+      revokedTokens.add(token);
+    };
+
+    // Delete token
+    res.clearCookie("my-token");
+
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    console.error("Error during logout:", error);
+    res.status(500).json({ message: "Internal server error during logout" });
+  }
 };
+
+
+
