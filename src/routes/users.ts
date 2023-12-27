@@ -1,5 +1,6 @@
 import express from "express";
 import { addUser, deleteUser, getOne, getUsers, updateUser } from "../controllers/users";
+import { verifyToken } from "../middlewares";
 
 const routerUsers = express.Router();
 
@@ -7,10 +8,10 @@ routerUsers.get("/users", getUsers);
 
 routerUsers.post("/users", addUser);
 
-routerUsers.get("/users/:id", getOne);
+routerUsers.get("/users/:id", verifyToken, getOne);
 
-routerUsers.put("/users/:id", updateUser);
+routerUsers.put("/users/:id", verifyToken, updateUser);
 
-routerUsers.delete("/users/:id", deleteUser);
+routerUsers.delete("/users/:id", verifyToken, deleteUser);
 
-export {routerUsers} 
+export {routerUsers}; 
