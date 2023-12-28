@@ -46,25 +46,21 @@ export const AddUserForm: React.FC = () => {
             `${import.meta.env.VITE_APP_BASE_URL}/users`,
             newUser
           )
-            .then((res) => {
+          .then((res) => {
               console.log(res);
             })
             .catch((error) => {
               console.log(error);
             });
-   
- 
       };
 
 
       React.useEffect(() => {
         console.log(newUser);    
-           console.log("User: ", import.meta.env.VITE_APP_BASE_URL);
-
       }, [newUser]);
 
   return (
-    <div>
+    <div className={classes.container}>
       <h2>Create your Profile</h2>
       <form onSubmit={handleSubmit} className={classes.form}>
         <FormField
