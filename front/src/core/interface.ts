@@ -7,11 +7,13 @@ export type All_Actions = UPDATE_THEME;
 
 //
 export interface Users {
-     name: string;
-    password: string;
-    email: string;
-    age: number;
-    adult: boolean;
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+  age: number | null;
+  job: string;
+  gender: string;
 };
 
 //

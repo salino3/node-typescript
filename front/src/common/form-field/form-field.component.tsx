@@ -6,7 +6,7 @@ interface Props {
   name: string;
   type: string;
   required: boolean;
-  nameValue?: string;
+  nameValue?: string | number | readonly string[] | undefined;
   handleChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
   handleClick?: React.MouseEventHandler<HTMLInputElement> | undefined;
   br?: boolean;

@@ -5,17 +5,18 @@ import * as classes from "./gender-fomr-field.styles";
 interface Props {
   name: string;
   required: boolean;
-  handleChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
-  handleClick?: React.MouseEventHandler<HTMLInputElement> | undefined;
+  handleChange?: React.ChangeEventHandler<HTMLSelectElement> | undefined;
+  handleClick?: React.MouseEventHandler<HTMLOptionElement> | undefined;
   br?: boolean;
-  genders: {value: string}[]
+  genders: { value: string }[];
+  nameValue?: string | number | readonly string[] | undefined;
 };
 
 
 
 
 export const GenderFormField: React.FC<Props> = (props) => {
-  const { name, genders, required, handleChange, handleClick, br = true } = props;
+  const { name, genders, required, handleChange, handleClick, br = true, nameValue } = props;
 
   const { capitalizing } = React.useContext<MyState>(GlobalContext);
 
@@ -26,9 +27,9 @@ export const GenderFormField: React.FC<Props> = (props) => {
     <div className={classes.container}>
       <label htmlFor={name}>{capitalizing(name)}</label>
       {br && <br />}
-      <select required={required} name={name} id={name}>
+      <select onChange={handleChange} value={nameValue} required={required} name={name} id={name}>
         { genders && genders.map((gender: {value: string}, index: number) => (
-            <option key={index} value={gender?.value == '..' ? '' : gender?.value}>{gender?.value}</option>
+            <option onClick={handleClick} key={index} value={gender?.value == '..' ? '' : gender?.value}>{gender?.value}</option>
          ))
         }
       </select>
