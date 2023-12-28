@@ -13,10 +13,30 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
   if (!users) {
     res.send("Error, the table does not have users.");
     return;
-  }
+  };
 
   try {
-    res.json(users);
+
+    function formatedData (item: UserModel) {
+     const user = {
+       id: item.id,
+       name: item.name,
+       surname: item.surname,
+       email: item.email,
+       age: item.age,
+       job: item.job,
+       isAdult: item.isAdult,
+       gender: item.gender,
+      //  createdAt: item.createdAt,
+      //  updatedAt: item.updatedAt
+     };
+     return user
+    }
+
+     const usersWithoutPassword = users.map((item: UserModel) => formatedData(item));
+
+
+    res.json(usersWithoutPassword);
   } catch (error) {
     console.error(error);
     res.status(500);
