@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormField } from '@/common';
+import { Button, FormField } from '@/common';
 import { GenderFormField } from '@/common-app';
 import * as classes from './add-user-form.styles';
 
@@ -21,7 +21,7 @@ export const AddUserForm: React.FC = () => {
   return (
     <div>
       <h2>Create your Profile</h2>
-      <form>
+      <form className={classes.form}>
         <FormField required={false} name="name" type="text" />
         <FormField required={false} name="surname" type="text" />
         <FormField required={false} name="email" type="email" />
@@ -32,6 +32,11 @@ export const AddUserForm: React.FC = () => {
          name='gender'
          required={false}
          genders={genders}
+          />
+        <Button
+         text='Submit'
+         type='submit'
+         myStyle={classes.btnForm}
           />
       </form>
     </div>
