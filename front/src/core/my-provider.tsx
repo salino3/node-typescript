@@ -10,15 +10,26 @@ export const MyProvider: React.FC<Props> = ({children}) => {
     const [state, dispatch] = React.useReducer(MyReducer, initialState)
 
 
- const toggleTheme = () => {
+ const toggleTheme = React.useCallback(() => {
    dispatch({
      type: "UPDATE_THEME",
      payload: state.theme === "light" ? "dark" : "light",
    });
- };
+ },
+   [dispatch]);
+
+
+ const capitalizing = React.useCallback((str: string) => 
+     str.charAt(0).toUpperCase() + str.slice(1),
+   [dispatch]
+ );
+
+
 
   return (
-    <GlobalContext.Provider value={{state, dispatch, toggleTheme }}>
+    <GlobalContext.Provider
+      value={{ state, dispatch, toggleTheme, capitalizing }}
+    >
       <div id={state.theme}>{children}</div>
     </GlobalContext.Provider>
   );

@@ -30,4 +30,5 @@ export interface MyState {
   state: State;
   dispatch: React.Dispatch<All_Actions>;
   toggleTheme: () => void;
-}
+  capitalizing: (str: string) => string;
+};

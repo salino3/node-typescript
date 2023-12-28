@@ -52,6 +52,7 @@ export const userLogout = async ( req: Request, res: Response ): Promise<void> =
     if (token) {
       revokedTokens.add(token);
     };
+    console.log("Array->", revokedTokens);
 
     // Delete token
     res.clearCookie("my-token");
