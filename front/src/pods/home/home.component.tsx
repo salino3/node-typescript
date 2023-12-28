@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { GlobalContext, MyState } from '@/core';
 import { AddUserForm } from './components';
 import * as classes from './home.styles';
 
 export const HomeComponent: React.FC = () => {
 
-  const {state} = useContext<MyState>(GlobalContext);
+  const {state} = React.useContext<MyState>(GlobalContext);
 
   // console.log("State: ", state);
 

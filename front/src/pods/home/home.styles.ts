@@ -10,6 +10,7 @@ export const Div = styled.div`
   height: 100%;
   width: 100%;
   padding-top: 12px;
+
 `;
 
 export const detailsHome = css`
@@ -21,4 +22,8 @@ export const detailsHome = css`
   width: 100%;
   font-size: 22px;
   cursor: pointer;
+
+  h2 {
+    color: black;
+  }
 `;

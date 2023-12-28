@@ -1,7 +1,7 @@
 interface UPDATE_THEME {
   type: "UPDATE_THEME";
   payload: string;
-}
+};
 
 export type All_Actions = UPDATE_THEME;
 
@@ -12,13 +12,13 @@ export interface Users {
     email: string;
     age: number;
     adult: boolean;
-}
+};
 
 //
 export interface State {
   theme: string;
   users: Users[]
-}
+};
 
 //
 export const initialState: State = {
