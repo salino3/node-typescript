@@ -6,19 +6,8 @@ import { hashPassword, comparePasswords, generateToken, verifyToken  } from '../
 
 interface UserProps extends Omit<UserModel, "id" | "createdAt" | "updatedAt"> {}
 
-
-export const getUsers = async (req: Request, res: Response): Promise<void> => {
-  const users = await UserModel.findAll();
-
-  if (!users) {
-    res.send("Error, the table does not have users.");
-    return;
-  };
-
-  try {
-
-    function formatedData (item: UserModel) {
-     const user = {
+function formatedData (item: UserModel) {
+  const user = {
        id: item.id,
        name: item.name,
        surname: item.surname,
@@ -30,9 +19,20 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
       //  createdAt: item.createdAt,
       //  updatedAt: item.updatedAt
      };
-     return user
-    }
+    return user
+};
 
+
+export const getUsers = async (req: Request, res: Response): Promise<void> => {
+  
+  try {
+    const users = await UserModel.findAll();
+  
+    if (!users) {
+      res.send("Error, the table does not have users.");
+      return;
+    };
+    
      const usersWithoutPassword = users.map((item: UserModel) => formatedData(item));
 
 
@@ -104,7 +104,11 @@ export const getOne = async (req: Request, res: Response): Promise<void> => {
     return;
    };
 
-   res.status(200).json(user);
+    const userWithoutPassword = [user].map((item: UserModel) =>
+          formatedData(item)
+    );
+
+   res.status(200).json(userWithoutPassword);
  } catch (error) {
   console.error(error);
   res.status(500);
