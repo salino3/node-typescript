@@ -1,0 +1,31 @@
+{
+  "homepage": "https://salino3.github.io/vite-react-context-users",
+  "name": "vite-react-context-users",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vite --port 2000",
+    "build": "tsc && vite build",
+    "deploy": "gh-pages -d dist",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/css": "^11.11.2",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "animate.css": "^4.1.1",
+    "axios": "^1.6.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.17.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "gh-pages": "^6.0.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0"
+  }
+}

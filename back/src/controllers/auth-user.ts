@@ -33,6 +33,7 @@ export const userLogin = async (req: Request, res: Response): Promise<void> => {
       secure: process.env.NODE_ENV === "production", // Establish at true in 'production' for use HTTPS
       maxAge: 2 * 60 * 60 * 1000, // Time of expiration de expiración in milliseconds (2 hours)
       sameSite: "strict", // Against a malicious link on an external site), which improves security against CSRF.
+      domain: 'localhost'
     });
 
     res.status(200).json({ message: "Login successful", token });
@@ -51,6 +52,7 @@ export const userLogout = async ( req: Request, res: Response ): Promise<void> =
     if (token) {
       revokedTokens.add(token);
     };
+    console.log("Array->", revokedTokens);
 
     // Delete token
     res.clearCookie("my-token");
