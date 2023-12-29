@@ -1,13 +1,10 @@
 import React from 'react';
-import { GlobalContext, MyState } from '@/core';
-import { AddUserForm, AllUsers } from './components';
+import { AddUserForm, AllUsers, LoginForm } from './components';
 import * as classes from './home.styles';
 
 export const HomeComponent: React.FC = () => {
 
-  // const {state} = React.useContext<MyState>(GlobalContext);
 
-  // console.log("State: ", state);
 
   return (
     <classes.Div>
@@ -16,9 +13,13 @@ export const HomeComponent: React.FC = () => {
         <summary>Form</summary>
         <AddUserForm />
       </details>
-      <details open className={classes.detailsHome}>
+      <details className={classes.detailsHome}>
         <summary>All Users</summary>
         <AllUsers />
+      </details>
+      <details open className={classes.detailsHome}>
+        <summary>Login User</summary>
+        <LoginForm />
       </details>
     </classes.Div>
   );
