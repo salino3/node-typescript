@@ -31,7 +31,7 @@ export const LoginForm: React.FC = () => {
             // Save the token in the client coockies
             document.cookie = `my-token=${token}; path=/; secure; samesite=strict; max-age=${
               2 * 60 * 60
-            }; domain=localhost`;
+            }; domain=${import.meta.env.VITE_APP_DOMAIN}`;
 
             console.log("Login successful", response.data);
           })
