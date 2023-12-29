@@ -16,7 +16,7 @@ export interface UsersAllData {
   name: string;
   surname: string;
   email: string;
-  password: string;
+  password?: string;
   age: number | null;
   job: string;
   isAdult: boolean;
@@ -39,7 +39,7 @@ export interface Users {
 //
 export interface State {
   theme: string;
-  users: Users[]
+  users: UsersAllData[];
 };
 
 //
