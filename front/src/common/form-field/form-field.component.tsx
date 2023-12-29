@@ -7,13 +7,14 @@ interface Props {
   type: string;
   required: boolean;
   nameValue?: string | number | readonly string[] | undefined;
+  pl?: string | undefined;
   handleChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
   handleClick?: React.MouseEventHandler<HTMLInputElement> | undefined;
   br?: boolean;
 };
 
 export const FormField: React.FC<Props> = (props) => {
-  const { name, type, required, nameValue, handleChange, handleClick, br = true} = props;
+  const { name, type, required, nameValue, pl, handleChange, handleClick, br = true} = props;
 
   const { capitalizing } = React.useContext<MyState>(GlobalContext);
 
@@ -26,6 +27,7 @@ export const FormField: React.FC<Props> = (props) => {
         onClick={handleClick}
         value={nameValue}
         required={required}
+        placeholder={pl}
         name={name}
         id={name}
         type={type}
