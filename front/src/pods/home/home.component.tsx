@@ -16,7 +16,7 @@ export const HomeComponent: React.FC = () => {
         <summary>Form</summary>
         <AddUserForm />
       </details>
-      <details open className={classes.detailsHome}>
+      <details className={classes.detailsHome}>
         <summary>All Users</summary>
         <AllUsers />
       </details>

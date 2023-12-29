@@ -5,10 +5,11 @@ import { css } from "@emotion/css";
 export const Div = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
+  padding-bottom: 100px;
 
 `;
 

@@ -12,13 +12,50 @@ export const CardAllUsers: React.FC<Props> = (props) => {
 
   return (
     <div className={classes.container}>
-      {user?.name} <br />
-      {user?.surname} <br />
-      {user?.email} <br />
-      {user?.age} <br />
-      {user?.isAdult ? "It`s adult" : "It isn`t adult"} <br />
-      {user?.gender} <br />
-      {user?.job} 
+      <div className={classes.boxCardText}>
+        <h3 className={classes.cardText}>
+          <span className={classes.spanType}>Name:</span>
+          <span className={classes.spanValue}>{user?.name}</span>
+        </h3>
+      </div>
+      <div className={classes.boxCardText}>
+        <h3 className={classes.cardText}>
+          <span className={classes.spanType}>Surname:</span>
+          <span className={classes.spanValue}>{user?.surname}</span>
+        </h3>
+      </div>
+      <div className={classes.boxCardText}>
+        <h3 className={classes.cardText}>
+          <span className={classes.spanType}>Email:</span>
+          <span className={classes.spanValue}>{user?.email}</span>
+        </h3>
+      </div>
+      <div className={classes.boxCardText}>
+        <h3 className={classes.cardText}>
+          <span className={classes.spanType}>Age:</span>
+          <span className={classes.spanValue}>{user?.age}</span>
+        </h3>
+      </div>{" "}
+      <div className={classes.boxCardText}>
+        <h3 className={classes.cardText}>
+          <span className={classes.spanType}>Adult:</span>
+          <span className={classes.spanValue}>
+            {user?.isAdult ? "Yes" : "Not"}
+          </span>
+        </h3>
+      </div>{" "}
+      <div className={classes.boxCardText}>
+        <h3 className={classes.cardText}>
+          <span className={classes.spanType}>Gender:</span>
+          <span className={classes.spanValue}>{user?.gender}</span>
+        </h3>
+      </div>
+      <div className={classes.boxCardText}>
+        <h3 className={classes.cardText}>
+          <span className={classes.spanType}>Job:</span>
+          <span className={classes.spanValue}>{user?.job}</span>
+        </h3>
+      </div>
     </div>
   );
 }
