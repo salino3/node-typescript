@@ -27,10 +27,11 @@ export interface UsersAllData {
 
 
 export interface Users {
+  id?: string;
   name: string;
   surname: string;
   email: string;
-  password: string;
+  password?: string;
   age: number | null;
   job: string;
   gender: string;
