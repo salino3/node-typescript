@@ -29,9 +29,6 @@ export const LoginForm: React.FC = () => {
             const { token, userId } = response.data;
 
             // Save the token in the client coockies
-            // document.cookie = `my-token=${token}; path=/; secure; samesite=strict; max-age=${
-            //   2 * 60 * 60
-            // }; domain=${import.meta.env.VITE_APP_DOMAIN}`;
             document.cookie = `my-token-${userId}=${token}; path=/; secure; samesite=strict; max-age=${
               2 * 60 * 60
             }; domain=${import.meta.env.VITE_APP_DOMAIN}`;
