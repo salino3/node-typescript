@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import UserModel from "../models/user";
 import { hashPassword, comparePasswords, generateToken, verifyToken  } from '../middlewares';
+import jwt from "jsonwebtoken";
 
 
 
@@ -168,8 +169,25 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
 
   const id = req.params.id;
+  const token = req.cookies[`my-token-${id}`];
 
   try {
+     if (!token) {
+       res.status(403).json({
+         message: "Forbidden: Token not provided",
+       });
+       return;
+     };
+
+     const decodedToken: any = jwt.verify(token, `${process.env.SECRET_KEY}`); 
+  
+     if (decodedToken.userId !== id) {
+       res.status(403).json({
+         message:
+           "Forbidden: You don't have permission to delete this user",
+       });
+       return;
+     };
     
     await UserModel.destroy({
       where: {

@@ -44,28 +44,6 @@ export const userLogin = async (req: Request, res: Response): Promise<void> => {
 };
 
 
-// export const userLogout = async ( req: Request, res: Response ): Promise<void> => {
-//     try {
-
-//     const token = req.cookies["my-token"];
-
-//     if (token) {
-//       revokedTokens.add(token);
-//     };
-//     console.log("Array->", revokedTokens);
-
-//     // Delete token
-//     res.clearCookie("my-token");
-
-//     res.status(200).json({ message: "Logout successful" });
-//   } catch (error) {
-//     console.error("Error during logout:", error);
-//     res.status(500).json({ message: "Internal server error during logout" });
-//   }
-// };
-
-
-
 export const userLogout = async ( req: Request, res: Response): Promise<void> => {
   try {
     const userId = req.body.storedUserId;
