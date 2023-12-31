@@ -8,17 +8,18 @@ interface UserProps extends Omit<UserModel, "id" | "createdAt" | "updatedAt"> {}
 
 function formatedData (item: UserModel) {
   const user = {
-       id: item.id,
-       name: item.name,
-       surname: item.surname,
-       email: item.email,
-       age: item.age,
-       job: item.job,
-       isAdult: item.isAdult,
-       gender: item.gender,
-      //  createdAt: item.createdAt,
-      //  updatedAt: item.updatedAt
-     };
+    id: item.id,
+    name: item.name,
+    surname: item.surname,
+    email: item.email,
+    age: item.age,
+    job: item.job,
+    isAdult: item.isAdult,
+    gender: item.gender,
+    role: item.role,
+    //  createdAt: item.createdAt,
+    //  updatedAt: item.updatedAt
+  };
     return user
 };
 
@@ -59,6 +60,7 @@ export const addUser = async (req: Request, res: Response): Promise<void> => {
     const newUser = await UserModel.create({
       ...user,
       password: hashedPassword,
+      role: "user",
       isAdult,
     });
 
