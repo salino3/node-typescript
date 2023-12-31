@@ -201,3 +201,31 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
     res.status(500);
   };
 };
+
+
+export const deleteUserByAdmin = async (req: Request, res: Response): Promise<void> => {
+
+   const id = req.params.id;
+
+   try {
+    
+     await UserModel.destroy({
+      where: {
+        id: id
+      }
+     });
+
+     res.status(200).json({ message: "User deleted successfully" });
+   } catch (error) {
+      console.error(error);
+      res.status(500);
+   };
+};
+
+
+
+
+
+
+
+

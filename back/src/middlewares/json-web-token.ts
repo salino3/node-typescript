@@ -1,6 +1,7 @@
 
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import UserModel from "../models/user";
 
 interface DecodedToken extends JwtPayload {};
 
@@ -48,5 +49,34 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
     next();
   } catch (error) {
     return res.status(401).json({ message: "Unauthorized: Invalid token" });
+  };
+};
+
+
+export const verifyAdmin = async (req: Request, res: Response, next: NextFunction) => {
+
+  const idAdmin = req.params.idAdmin;
+
+  try {
+
+    const existingUser = await UserModel.findByPk(idAdmin);
+    
+    if (!existingUser) {
+      res.status(404).json({ message: "User Admin not found" });
+      return;
+    };
+
+    if (existingUser.role !== "admin") {
+      res.status(403).json({
+        message:
+          "Forbidden: Only admins have permission to perform this action",
+      });
+      return;
+    } else {
+      next();
+    };
+  } catch (error) {
+     console.error(error);
+     res.status(500);
   };
 };
