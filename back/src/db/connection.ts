@@ -5,7 +5,7 @@ dotenv.config();
 
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT } = process.env;
 
-if (!DB_HOST || !DB_USER || !DB_PASSWORD || !DB_DATABASE) {
+if (!DB_HOST || !DB_USER || !DB_PASSWORD || !DB_DATABASE || !DB_PORT) {
   throw new Error(
     "Environment variables are missing for the database connection."
   );
