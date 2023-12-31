@@ -16,7 +16,7 @@ class UserModel extends Model {
   public job!: string;
   public isAdult!: boolean;
   public gender!: GenderType;
-  public rol!: RoleType;
+  public role!: RoleType;
   public createdAt!: Date;
   public updatedAt!: Date;
 }
@@ -68,7 +68,7 @@ UserModel.init(
       allowNull: true,
       defaultValue: "prefer not to say",
     },
-    rol: {
+    role: {
       type: DataTypes.ENUM<RoleType>("admin", "user"),
       allowNull: false,
       defaultValue: "user",
