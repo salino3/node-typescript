@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, FormField } from '@/common';
 import * as classes from './delete-profile.styles';
+import Axios from 'axios';
 
 
 export const DeleteProfile: React.FC = () => {
@@ -21,7 +22,35 @@ export const DeleteProfile: React.FC = () => {
    ) => {
      event.preventDefault();
 
-     alert(JSON.stringify(user));
+      const storedUserId = localStorage.getItem("my-identification-userId");
+
+     const token = document.cookie.replace(
+        new RegExp(`(?:(?:^|.*;\\s*)my-token-${storedUserId}\\s*=\\s*([^;]*).*$)|^.*$`),
+        "$1"
+     );
+     console.log("here->", token)
+
+      Axios.delete(
+        `${import.meta.env.VITE_APP_BASE_URL}/users/${storedUserId}`,
+        {
+          data: user,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          }
+        }
+      )
+        .then((res) => {
+          if (storedUserId) {
+            document.cookie = `my-token-${storedUserId}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; secure; samesite=strict;`;
+            localStorage.removeItem("my-identification-userId");
+          } else {
+            alert("Could not clear cookies, try manually");
+          }
+        })
+        .catch((error) => {
+          console.error("Error", error);
+        });
    };
 
   return (

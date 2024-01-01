@@ -170,7 +170,7 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
 
   const id = req.params.id;
-  const token = req.cookies[`my-token-${id}`];
+  const token: string | undefined = req.headers.authorization?.split(" ")[1];
   const { email, password } = req.body;
 
   try {
@@ -197,10 +197,9 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
       res.status(401).json({ message: "Invalid credentials" });
       return;
     };
-
-
+    
      const decodedToken: any = jwt.verify(token, `${process.env.SECRET_KEY}`); 
-  
+
      if (decodedToken.userId !== id) {
        res.status(403).json({
          message:
