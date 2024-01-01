@@ -23,7 +23,6 @@ export const GetOneUser: React.FC = () => {
 
     const storedUserId = localStorage.getItem("my-identification-userId");
 
-    console.log("TOKEN->", storedUserId)
     const token = document.cookie.replace(
     new RegExp(`(?:(?:^|.*;\\s*)my-token-${storedUserId}\\s*=\\s*([^;]*).*$)|^.*$`),
     "$1"
@@ -36,7 +35,7 @@ export const GetOneUser: React.FC = () => {
     })
       .then((response) => {
         setUserData(response.data[0]);
-        console.log(response.data);
+        console.log(response.data[0]);
       })
       .catch((error) => {
         console.error(error);
