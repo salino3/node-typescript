@@ -64,42 +64,42 @@ export const AddUserForm: React.FC = () => {
       <h2>Create your Profile</h2>
       <form onSubmit={handleSubmit} className={classes.form}>
         <FormField
-          required={false}
+          required
           nameValue={newUser?.name}
           handleChange={handleChange("name")}
           name="name"
           type="text"
         />
         <FormField
-          required={false}
+          required
           nameValue={newUser?.surname}
           handleChange={handleChange("surname")}
           name="surname"
           type="text"
         />
         <FormField
-          required={false}
-          nameValue={newUser?.email}
+          required
+          nameValue={newUser?.email.toLowerCase()}
           handleChange={handleChange("email")}
           name="email"
           type="email"
         />
         <FormField
-          required={false}
+          required
           nameValue={newUser?.password}
           handleChange={handleChange("password")}
           name="password"
           type="password"
         />
         <FormField
-          required={false}
+          required
           nameValue={newUser?.age ? newUser?.age : ""}
           handleChange={handleChange("age")}
           name="age"
           type="number"
         />
         <FormField
-          required={false}
+          required
           nameValue={newUser?.job}
           handleChange={handleChange("job")}
           name="job"
@@ -109,7 +109,7 @@ export const AddUserForm: React.FC = () => {
           name="gender"
           nameValue={newUser?.gender}
           handleChange={handleChange("gender")}
-          required={false}
+          required
           genders={genders}
         />
         <Button text="Submit" type="submit" myStyle={classes.btnForm} />

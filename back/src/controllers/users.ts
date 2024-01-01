@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
-import UserModel from "../models/user";
-import { hashPassword, comparePasswords, generateToken, verifyToken  } from '../middlewares';
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import UserModel from "../models/user";
+import { hashPassword } from '../middlewares';
 
 
 
@@ -169,18 +170,36 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
 
   const id = req.params.id;
-  const token = req.cookies[`my-token-${id}`];
+  const token: string | undefined = req.headers.authorization?.split(" ")[1];
+  const { email, password } = req.body;
 
   try {
-     if (!token) {
-       res.status(403).json({
-         message: "Forbidden: Token not provided",
-       });
-       return;
-     };
 
+    if (!token) {
+      res.status(403).json({
+        message: "Forbidden: Token not provided",
+      });
+      return;
+    };
+
+    // Verify if the user exist
+    const user = await UserModel.findOne({ where: { email } });
+
+    if (!user || !password) {
+      res.status(401).json({ message: "Invalid credentials" });
+      return;
+    };
+
+    // Compare password in database
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      res.status(401).json({ message: "Invalid credentials" });
+      return;
+    };
+    
      const decodedToken: any = jwt.verify(token, `${process.env.SECRET_KEY}`); 
-  
+
      if (decodedToken.userId !== id) {
        res.status(403).json({
          message:

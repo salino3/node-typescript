@@ -1,9 +1,8 @@
 import React from 'react';
-import { AddUserForm, AllUsers, GetOneUser, Logout, LoginForm } from './components';
+import { AddUserForm, AllUsers, GetOneUser, Logout, LoginForm, DeleteProfile } from './components';
 import * as classes from './home.styles';
 
 export const HomeComponent: React.FC = () => {
-
 
 
   return (
@@ -25,9 +24,13 @@ export const HomeComponent: React.FC = () => {
         <summary>Logout</summary>
         <Logout />
       </details>
-      <details open className={classes.detailsHome}>
+      <details className={classes.detailsHome}>
         <summary>Get One User</summary>
         <GetOneUser />
+      </details>
+      <details open className={classes.detailsHome}>
+        <summary>Delete your profile</summary>
+        <DeleteProfile />
       </details>
     </classes.Div>
   );

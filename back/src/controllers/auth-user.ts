@@ -5,8 +5,9 @@ import { generateToken, revokedTokens } from "../middlewares";
 
 
 export const userLogin = async (req: Request, res: Response): Promise<void> => {
+  const { email, password } = req.body;
+  
   try {
-    const { email, password } = req.body;
 
     // Verify if the user exist
     const user = await UserModel.findOne({ where: { email } });
@@ -25,7 +26,7 @@ export const userLogin = async (req: Request, res: Response): Promise<void> => {
     }
 
     // Generate token JWT with user information
-    const token = generateToken({ userId: user.id, email: user.email });
+    const token = generateToken({ userId: user.id, email: user.email, role: user.role });
 
     // Token configuration
     res.cookie(`my-token-${user.id}`, token, {
