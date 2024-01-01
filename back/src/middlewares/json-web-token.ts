@@ -56,17 +56,34 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
 export const verifyAdmin = async (req: Request, res: Response, next: NextFunction) => {
 
   const idAdmin = req.params.idAdmin;
+  const token = req.cookies[`my-token-${idAdmin}`];
 
+  console.log("token->", token)
   try {
+    if (!token) {
+      res.status(403).json({
+        message: "Forbidden: Token not provided",
+      });
+      return;
+    };
 
     const existingUser = await UserModel.findByPk(idAdmin);
-    
+
     if (!existingUser) {
       res.status(404).json({ message: "User Admin not found" });
       return;
     };
 
-    if (existingUser.role !== "admin") {
+    const decodedToken: any = jwt.verify(token, `${process.env.SECRET_KEY}`);
+
+    if (decodedToken.userId !== idAdmin) {
+      res.status(403).json({
+        message: "Forbidden: You don't have permission to delete this user",
+      });
+      return;
+    };
+
+    if (decodedToken.role !== "admin") {
       res.status(403).json({
         message:
           "Forbidden: Only admins have permission to perform this action",
