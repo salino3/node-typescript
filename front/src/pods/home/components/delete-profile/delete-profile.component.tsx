@@ -1,7 +1,7 @@
 import React from 'react';
+import Axios from 'axios';
 import { Button, FormField } from '@/common';
 import * as classes from './delete-profile.styles';
-import Axios from 'axios';
 
 
 export const DeleteProfile: React.FC = () => {
