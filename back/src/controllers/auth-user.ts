@@ -15,7 +15,7 @@ export const userLogin = async (req: Request, res: Response): Promise<void> => {
     if (!user) {
       res.status(401).json({ message: "Invalid credentials" });
       return;
-    }
+    };
 
     // Compare password in database
     const passwordMatch = await bcrypt.compare(password, user.password);
@@ -23,7 +23,7 @@ export const userLogin = async (req: Request, res: Response): Promise<void> => {
     if (!passwordMatch) {
       res.status(401).json({ message: "Invalid credentials" });
       return;
-    }
+    };
 
     // Generate token JWT with user information
     const token = generateToken({ userId: user.id, email: user.email, role: user.role });

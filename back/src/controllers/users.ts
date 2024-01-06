@@ -225,13 +225,30 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
 export const deleteUserByAdmin = async (req: Request, res: Response): Promise<void> => {
 
    const id = req.params.id;
+     const { email, password } = req.body;
+
 
    try {
-    
+     // Verify if the user exist
+     const user = await UserModel.findOne({ where: { email } });
+
+     if (!user) {
+       res.status(401).json({ message: "Invalid credentials" });
+       return;
+     };
+
+     // Compare password in database
+     const passwordMatch = await bcrypt.compare(password, user.password);
+
+      if (!passwordMatch) {
+      res.status(401).json({ message: "Invalid credentials" });
+      return;
+      };
+
      await UserModel.destroy({
-      where: {
-        id: id
-      }
+       where: {
+         id: id,
+       },
      });
 
      res.status(200).json({ message: "User deleted successfully" });
