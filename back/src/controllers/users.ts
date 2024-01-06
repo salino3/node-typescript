@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import UserModel from "../models/user";
-import { hashPassword } from '../middlewares';
+import { hashPassword, revokedTokens } from '../middlewares';
 
 
 
@@ -227,7 +227,6 @@ export const deleteUserByAdmin = async (req: Request, res: Response): Promise<vo
    const id = req.params.id;
      const { email, password } = req.body;
 
-
    try {
      // Verify if the user exist
      const user = await UserModel.findOne({ where: { email } });
@@ -252,6 +251,17 @@ export const deleteUserByAdmin = async (req: Request, res: Response): Promise<vo
      });
 
      res.status(200).json({ message: "User deleted successfully" });
+
+      const token = req.cookies[`my-token-${id}`];
+      
+      if (token) {
+        revokedTokens.add(token);
+        res.clearCookie(`my-token-${id}`);
+        res.status(200).json({ message: "Logout successful" });
+      } else {
+        res.status(500).json({ message: "Unable to clear cookie" });
+      };
+
    } catch (error) {
       console.error(error);
       res.status(500);

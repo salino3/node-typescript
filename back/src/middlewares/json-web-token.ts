@@ -59,8 +59,6 @@ export const verifyAdmin = async (req: Request, res: Response, next: NextFunctio
   // const token = req.cookies[`my-token-${idAdmin}`];
     const token: string | undefined = req.headers.authorization?.split(" ")[1];
 
-
-  console.log("token->", token)
   try {
     if (!token) {
       res.status(403).json({

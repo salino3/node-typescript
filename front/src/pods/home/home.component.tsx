@@ -9,7 +9,7 @@ export const HomeComponent: React.FC = () => {
     <classes.Div>
       <h1>Home Page</h1>
       <details className={classes.detailsHome}>
-        <summary>Form</summary>
+        <summary>Create New Profile</summary>
         <AddUserForm />
       </details>
       <details className={classes.detailsHome}>
