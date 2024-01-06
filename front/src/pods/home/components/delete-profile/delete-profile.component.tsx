@@ -1,7 +1,7 @@
 import React from 'react';
+import Axios from 'axios';
 import { Button, FormField } from '@/common';
 import * as classes from './delete-profile.styles';
-import Axios from 'axios';
 
 
 export const DeleteProfile: React.FC = () => {
@@ -28,7 +28,6 @@ export const DeleteProfile: React.FC = () => {
         new RegExp(`(?:(?:^|.*;\\s*)my-token-${storedUserId}\\s*=\\s*([^;]*).*$)|^.*$`),
         "$1"
      );
-     console.log("here->", token)
 
       Axios.delete(
         `${import.meta.env.VITE_APP_BASE_URL}/users/${storedUserId}`,

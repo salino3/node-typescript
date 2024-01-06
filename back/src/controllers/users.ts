@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import UserModel from "../models/user";
-import { hashPassword } from '../middlewares';
+import { hashPassword, revokedTokens } from '../middlewares';
 
 
 
@@ -225,16 +225,43 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
 export const deleteUserByAdmin = async (req: Request, res: Response): Promise<void> => {
 
    const id = req.params.id;
+     const { email, password } = req.body;
 
    try {
-    
+     // Verify if the user exist
+     const user = await UserModel.findOne({ where: { email } });
+
+     if (!user) {
+       res.status(401).json({ message: "Invalid credentials" });
+       return;
+     };
+
+     // Compare password in database
+     const passwordMatch = await bcrypt.compare(password, user.password);
+
+      if (!passwordMatch) {
+      res.status(401).json({ message: "Invalid credentials" });
+      return;
+      };
+
      await UserModel.destroy({
-      where: {
-        id: id
-      }
+       where: {
+         id: id,
+       },
      });
 
      res.status(200).json({ message: "User deleted successfully" });
+
+      const token = req.cookies[`my-token-${id}`];
+      
+      if (token) {
+        revokedTokens.add(token);
+        res.clearCookie(`my-token-${id}`);
+        res.status(200).json({ message: "Logout successful" });
+      } else {
+        res.status(500).json({ message: "Unable to clear cookie" });
+      };
+
    } catch (error) {
       console.error(error);
       res.status(500);

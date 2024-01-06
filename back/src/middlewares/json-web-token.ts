@@ -56,9 +56,9 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
 export const verifyAdmin = async (req: Request, res: Response, next: NextFunction) => {
 
   const idAdmin = req.params.idAdmin;
-  const token = req.cookies[`my-token-${idAdmin}`];
+  // const token = req.cookies[`my-token-${idAdmin}`];
+    const token: string | undefined = req.headers.authorization?.split(" ")[1];
 
-  console.log("token->", token)
   try {
     if (!token) {
       res.status(403).json({
