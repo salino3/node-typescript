@@ -73,7 +73,7 @@ export interface MyState {
   state: State;
   dispatch: React.Dispatch<All_Actions>;
   getUsers: (users: UsersAllData[]) => void;
-  getUser: (getUser: string) => void;
+  getUserData: (userID: string) => void;
   toggleTheme: () => void;
   capitalizing: (str: string) => string;
 };

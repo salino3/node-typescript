@@ -19,35 +19,32 @@ export const MyProvider: React.FC<Props> = ({children}) => {
   }, []);
 
 //
-  const getUser = React.useCallback((getUser: string ) => {
+  const getUserData = React.useCallback((userID: string) => {
+    const storedUserId = localStorage.getItem("my-identification-userId");
 
-      const storedUserId = localStorage.getItem("my-identification-userId");
+    const token = document.cookie.replace(
+      new RegExp(
+        `(?:(?:^|.*;\\s*)my-token-${storedUserId}\\s*=\\s*([^;]*).*$)|^.*$`
+      ),
+      "$1"
+    );
 
-      const token = document.cookie.replace(
-        new RegExp(
-          `(?:(?:^|.*;\\s*)my-token-${storedUserId}\\s*=\\s*([^;]*).*$)|^.*$`
-        ),
-        "$1"
-      );
-
-      Axios.get(`${import.meta.env.VITE_APP_BASE_URL}/users/${getUser}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => {
-          dispatch({
-            type: "GET_USER",
-            payload: response.data[0],
-          });
-          console.log("Data", response.data[0]);
-        })
-        .catch((error) => {
-          console.error(error);
+    Axios.get(`${import.meta.env.VITE_APP_BASE_URL}/users/${userID}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        dispatch({
+          type: "GET_USER",
+          payload: response.data[0],
         });
-    },
-    []
-  );
+        console.log("Data", response.data[0]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
 
  const toggleTheme = React.useCallback(() => {
@@ -75,7 +72,14 @@ export const MyProvider: React.FC<Props> = ({children}) => {
 
   return (
     <GlobalContext.Provider
-      value={{ state, dispatch, getUsers, getUser,  toggleTheme, capitalizing }}
+      value={{
+        state,
+        dispatch,
+        getUsers,
+        getUserData,
+        toggleTheme,
+        capitalizing,
+      }}
     >
       <div id={state.theme}>{children}</div>
     </GlobalContext.Provider>

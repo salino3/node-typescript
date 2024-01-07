@@ -11,7 +11,7 @@ interface Genders {
 
 export const UpdateUser: React.FC = () => {
 
-const {getUser, state} = React.useContext<MyState>(GlobalContext);
+const { getUserData, state } = React.useContext<MyState>(GlobalContext);
 const {user} = state;
 
 const {id} = useParams();
@@ -50,7 +50,7 @@ console.log("ID-> ", user)
 
   React.useEffect(() => {
     if(id) {
-     getUser(id);
+     getUserData(id);
     };
   }, [id])
   
