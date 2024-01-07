@@ -32,7 +32,7 @@ export const HomeComponent: React.FC = () => {
         <summary>Delete your profile</summary>
         <DeleteProfile />
       </details>
-      <details open className={classes.detailsHome}>
+      <details className={classes.detailsHome}>
         <summary>Delete Profile By Admin</summary>
         <DeleteProfileByAdmin />
       </details>
