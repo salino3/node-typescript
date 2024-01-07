@@ -1,5 +1,4 @@
 import React from "react";
-import Axios from "axios";
 import { GlobalContext, MyState, Users } from "@/core";
 import { Button, FormField } from "@/common";
 import * as classes from './get-one-user.styles';

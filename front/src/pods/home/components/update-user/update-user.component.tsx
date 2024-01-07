@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { GlobalContext, MyState, Users } from "@/core";
+import { GlobalContext, MyState, Users, UsersFunctions } from "@/core";
 import { Button, FormField } from "@/common";
 import { GenderFormField } from "@/common-app";
 import * as classes from "./update-user.styles";
@@ -13,6 +13,8 @@ export const UpdateUser: React.FC = () => {
 
 const { getUserData, state } = React.useContext<MyState>(GlobalContext);
 const {user} = state;
+
+const { updateUser } = UsersFunctions();
 
 const {id} = useParams();
 
@@ -27,15 +29,8 @@ console.log("ID-> ", user)
     { value: "prefer not to say" },
   ];
 
-  const [newUser, setNewUser] = React.useState<Users>({
-    name: "",
-    surname: "",
-    email: "",
-    password: "",
-    age: null,
-    job: "",
-    gender: "",
-  });
+    const [newUser, setNewUser] = React.useState<Users>(user);
+
 
   const handleChange = (key: keyof Users) => (event: any) => {
     const { value } = event.target;
@@ -46,13 +41,20 @@ console.log("ID-> ", user)
     event: React.FormEvent<HTMLFormElement>
    ) => {
      event.preventDefault();
+
+     console.log("Update->", newUser)
+     updateUser(newUser);
   };
 
   React.useEffect(() => {
     if(id) {
      getUserData(id);
     };
-  }, [id])
+  }, [id]);
+
+    React.useEffect(() => {
+      setNewUser(user);
+    }, [user]);
   
 
   return (
@@ -79,13 +81,6 @@ console.log("ID-> ", user)
           handleChange={handleChange("email")}
           name="email"
           type="email"
-        />
-        <FormField
-          required
-          nameValue={newUser?.password}
-          handleChange={handleChange("password")}
-          name="password"
-          type="password"
         />
         <FormField
           required
