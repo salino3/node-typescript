@@ -1,5 +1,6 @@
 import React from 'react';
 import { UsersAllData } from '@/core';
+import { SwitchRoutes } from '@/routes';
 import * as classes from './card-all-users.styles';
 
 interface Props {
@@ -11,7 +12,9 @@ export const CardAllUsers: React.FC<Props> = (props) => {
 
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container} onClick={() => {
+       window.location.href = `${SwitchRoutes.updateUser}/${user.id}`
+      }}>
       <div className={classes.boxCardText}>
         <h3 className={classes.cardText}>
           <span className={classes.spanType}>Name:</span>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AddUserForm, AllUsers, GetOneUser, Logout, LoginForm, DeleteProfile, DeleteProfileByAdmin, UpdateUser } from './components';
+import { AddUserForm, AllUsers, GetOneUser, Logout, LoginForm, DeleteProfile, DeleteProfileByAdmin } from './components';
 import * as classes from './home.styles';
 
 export const HomeComponent: React.FC = () => {
@@ -35,10 +35,6 @@ export const HomeComponent: React.FC = () => {
       <details className={classes.detailsHome}>
         <summary>Delete Profile By Admin</summary>
         <DeleteProfileByAdmin />
-      </details>
-      <details open className={classes.detailsHome}>
-        <summary>Update User</summary>
-        <UpdateUser />
       </details>
     </classes.Div>
   );
