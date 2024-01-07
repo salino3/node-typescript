@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { GlobalContext, MyState, Users } from "@/core";
 import { Button, FormField } from "@/common";
 import { GenderFormField } from "@/common-app";
@@ -10,7 +11,12 @@ interface Genders {
 
 export const UpdateUser: React.FC = () => {
 
-const {} = React.useContext<MyState>(GlobalContext);
+const {getUser, state} = React.useContext<MyState>(GlobalContext);
+const {user} = state;
+
+const {id} = useParams();
+
+console.log("ID-> ", user)
 
 
   const genders: Genders[] = [
@@ -41,6 +47,13 @@ const {} = React.useContext<MyState>(GlobalContext);
    ) => {
      event.preventDefault();
   };
+
+  React.useEffect(() => {
+    if(id) {
+     getUser(id);
+    };
+  }, [id])
+  
 
   return (
     <div className={classes.container}>

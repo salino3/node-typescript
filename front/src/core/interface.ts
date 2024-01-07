@@ -3,12 +3,17 @@ interface GET_USERS {
   payload: UsersAllData[];
 };
 
+interface GET_USER {
+  type: "GET_USER";
+  payload: UsersAllData;
+};
+
 interface UPDATE_THEME {
   type: "UPDATE_THEME";
   payload: string;
 };
 
-export type All_Actions = GET_USERS | UPDATE_THEME;
+export type All_Actions = GET_USERS | GET_USER | UPDATE_THEME;
 
 //
 export interface UsersAllData {
@@ -43,18 +48,32 @@ export interface Users {
 export interface State {
   theme: string;
   users: UsersAllData[];
+  user: UsersAllData;
 };
 
 //
 export const initialState: State = {
   theme: "light",
-  users: []
+  users: [],
+  user: {
+    id: "",
+    name: "",
+    surname: "",
+    email: "",
+    password: "",
+    age: null,
+    job: "",
+    gender: "",
+    role: "",
+    isAdult: false
+ }
 };
 
 export interface MyState {
   state: State;
   dispatch: React.Dispatch<All_Actions>;
   getUsers: (users: UsersAllData[]) => void;
+  getUser: (getUser: string) => void;
   toggleTheme: () => void;
   capitalizing: (str: string) => string;
 };

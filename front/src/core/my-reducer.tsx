@@ -12,6 +12,11 @@ export const MyReducer = (state: State, action: All_Actions) => {
         ...state,
         users: action.payload,
       };
+    case "GET_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
 
     default:
       return state;
