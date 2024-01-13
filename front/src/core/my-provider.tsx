@@ -11,11 +11,17 @@ export const MyProvider: React.FC<Props> = ({children}) => {
     const [state, dispatch] = React.useReducer(MyReducer, initialState);
 
 
-  const getUsers = React.useCallback((users: UsersAllData[]) => {
-    dispatch({
-      type: "GET_USERS",
-      payload: users,
-    });
+  const getUsers = React.useCallback(() => {
+
+     Axios.get(`${import.meta.env.VITE_APP_BASE_URL}/users`)
+     .then((res) => {
+
+       dispatch({
+         type: "GET_USERS",
+         payload: res.data,
+       });
+     })
+
   }, []);
 
 //
@@ -62,10 +68,7 @@ export const MyProvider: React.FC<Props> = ({children}) => {
  );
 
      React.useEffect(() => {
-      Axios.get(`${import.meta.env.VITE_APP_BASE_URL}/users`)
-      .then((res) => {
-        getUsers(res.data)
-      });
+      getUsers();
      }, []);
 
 

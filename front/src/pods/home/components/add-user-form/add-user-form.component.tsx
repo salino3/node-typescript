@@ -1,6 +1,5 @@
 import React from 'react';
-import Axios from 'axios';
-import { Users } from '@/core';
+import { GlobalContext, MyState, Users, UsersFunctions } from '@/core';
 import { Button, FormField } from '@/common';
 import { GenderFormField } from '@/common-app';
 import * as classes from './add-user-form.styles';
@@ -11,6 +10,10 @@ interface Genders {
 
 
 export const AddUserForm: React.FC = () => {
+
+   const { getUsers } = React.useContext<MyState>(GlobalContext);
+   const { createUser } = UsersFunctions();
+
     
     const genders: Genders[] = [
       { value: ".." },
@@ -41,17 +44,11 @@ export const AddUserForm: React.FC = () => {
       event: React.FormEvent<HTMLFormElement> ) => {
         event.preventDefault();
 
-          
-          await Axios.post(
-            `${import.meta.env.VITE_APP_BASE_URL}/users`,
-            newUser
-          )
-          .then((res) => {
-              console.log(res);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          const res = await createUser(newUser);
+
+          if(res?.data){
+            getUsers();
+          };
       };
 
 

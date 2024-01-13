@@ -37,7 +37,7 @@ const {id} = useParams();
 
      console.log("Update->", newPassword)
      if(newPassword?.password === confirmNewPassword){
-     updateUser(newPassword);
+      updateUser(newPassword);
     } else {
       alert("The passwords do not match");
     };
