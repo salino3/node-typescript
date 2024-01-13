@@ -1,5 +1,5 @@
 import React from 'react';
-import Axios from 'axios';
+import { UsersFunctions } from '@/core';
 import { Button, FormField } from '@/common';
 import * as classes from './delete-profile.styles';
 
@@ -10,6 +10,8 @@ export const DeleteProfile: React.FC = () => {
         email: "",
         password: ""
     });
+
+    const { deleteUser } = UsersFunctions();
 
    const handleChange = (key: keyof {email: string; password: string;}) => (event: any) => {
 
@@ -22,34 +24,7 @@ export const DeleteProfile: React.FC = () => {
    ) => {
      event.preventDefault();
 
-      const storedUserId = localStorage.getItem("my-identification-userId");
-
-     const token = document.cookie.replace(
-        new RegExp(`(?:(?:^|.*;\\s*)my-token-${storedUserId}\\s*=\\s*([^;]*).*$)|^.*$`),
-        "$1"
-     );
-
-      Axios.delete(
-        `${import.meta.env.VITE_APP_BASE_URL}/users/${storedUserId}`,
-        {
-          data: user,
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          }
-        }
-      )
-        .then((res) => {
-          if (storedUserId) {
-            document.cookie = `my-token-${storedUserId}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; secure; samesite=strict;`;
-            localStorage.removeItem("my-identification-userId");
-          } else {
-            alert("Could not clear cookies, try manually");
-          }
-        })
-        .catch((error) => {
-          console.error("Error", error);
-        });
+    deleteUser(user);
    };
 
   return (

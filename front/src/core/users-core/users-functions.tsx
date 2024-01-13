@@ -32,9 +32,39 @@ const updateUser = (user: Users) => {
       });
 };
 
+const deleteUser = (user: {email: string; password: string;}) => {
+
+    const token = getToken();
+
+    const storedUserId = localStorage.getItem("my-identification-userId");
+
+     Axios.delete(
+       `${import.meta.env.VITE_APP_BASE_URL}/users/${storedUserId}`,
+       {
+         data: user,
+         headers: {
+           Authorization: `Bearer ${token}`,
+           "Content-Type": "application/json",
+         },
+       }
+     )
+       .then((res) => {
+         if (storedUserId) {
+           document.cookie = `my-token-${storedUserId}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; secure; samesite=strict;`;
+           localStorage.removeItem("my-identification-userId");
+         } else {
+           alert("Could not clear cookies, try manually");
+         }
+       })
+       .catch((error) => {
+         console.error("Error", error);
+       });
+};
+
     
   return {
     updateUser,
-    getToken
+    deleteUser,
+    getToken,
   };
 }
