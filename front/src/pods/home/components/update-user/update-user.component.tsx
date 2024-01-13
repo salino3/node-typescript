@@ -1,8 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { GlobalContext, MyState, Users, UsersFunctions } from "@/core";
 import { Button, FormField } from "@/common";
 import { GenderFormField } from "@/common-app";
+import { SwitchRoutes } from "@/routes";
 import * as classes from "./update-user.styles";
 
 interface Genders {
@@ -60,6 +61,9 @@ console.log("ID-> ", user)
   return (
     <div className={classes.container}>
       <h2>Update your Profile</h2>
+      <h4>
+        <Link to={`${SwitchRoutes.updatePassword}/${newUser?.id}`}>Update Password</Link>
+      </h4>
       <form onSubmit={handleSubmit} className={classes.form}>
         <FormField
           required
