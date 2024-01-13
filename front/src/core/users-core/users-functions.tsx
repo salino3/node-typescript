@@ -74,12 +74,40 @@ export const UsersFunctions = () => {
       });
   };
 
-  console.log({ updateUser, deleteUser, createUser, getToken }); // Agrega esto para debug
+  //
+  const deleteUserByAdmin = async (user: {id: string; email: string; password: string;}) => {
+
+        const storedUserId = localStorage.getItem("my-identification-userId");
+
+        const token = getToken();
+
+         await Axios.delete(
+        `${import.meta.env.VITE_APP_BASE_URL}/users/admin/${user.id}/${storedUserId}`,
+        {
+          data: user,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          }
+        }
+      )
+      .then((res) => {
+        if (res.data) {
+          return res.data;
+        } else {
+          return "User deleted successfully";
+        };    
+      })
+        .catch((error) => {
+          console.error("Error", error);
+        });
+  };
 
   return {
+    createUser,
     updateUser,
     deleteUser,
-    createUser,
+    deleteUserByAdmin,
     getToken,
   };
 }
