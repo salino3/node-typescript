@@ -1,6 +1,6 @@
 import React from 'react';
-import { AddUserForm, AllUsers, GetOneUser, Logout, LoginForm, DeleteProfile, DeleteProfileByAdmin } from './components';
 import { Header } from '@/common-app';
+import { LoginForm } from './components';
 import * as classes from './home.styles';
 
 export const HomeComponent: React.FC = () => {
@@ -10,9 +10,7 @@ export const HomeComponent: React.FC = () => {
     <classes.Div>
       <Header />
       <h1>Home Page</h1>
-     
+      <LoginForm />
     </classes.Div>
   );
 }
-
-

@@ -50,7 +50,7 @@ export const LoginForm: React.FC = () => {
 
   return (
     <div className={classes.container}>
-      <h2>Login Form</h2>
+      <h2 className={classes.title}>Login Form</h2>
       <form onSubmit={handleSubmit} className={classes.form}>
         <FormField
           required={true}
