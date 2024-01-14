@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/css";
+import { theme } from "@/themes";
 
 export const Div = styled.div`
   display: flex;
@@ -9,9 +10,32 @@ export const Div = styled.div`
   gap: 20px;
   height: 100%;
   width: 100%;
-  padding-top: 12px;
+  text-align: center;
+
+  details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: auto;
+  }
+
+  h1,
+  summary {
+    white-space: nowrap;
+    background-color: ${theme.background.secundary};
+    padding: 5px;
+    width: fit-content;
+
+
+    span {
+    }
+  }
 
 `;
+
+
 
 export const detailsHome = css`
   display: flex;
