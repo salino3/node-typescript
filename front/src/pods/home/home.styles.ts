@@ -24,15 +24,13 @@ export const Div = styled.div`
   h1,
   summary {
     white-space: nowrap;
-    background-color: ${theme.background.secundary};
+    background-color: ${theme.background.secondary};
     padding: 5px;
     width: fit-content;
-
 
     span {
     }
   }
-
 `;
 
 
