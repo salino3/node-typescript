@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { Button, FormField } from "@/common";
+import { SwitchRoutes } from "@/routes";
 import * as classes from "./login-form.styles";
 
 interface LoginData {
@@ -9,6 +11,9 @@ interface LoginData {
 };
 
 export const LoginForm: React.FC = () => {
+
+  const navigate = useNavigate();
+
   const [userData, setUserData] = React.useState<LoginData>({
     email: "",
     password: "",
@@ -36,6 +41,7 @@ export const LoginForm: React.FC = () => {
             localStorage.setItem("my-identification-userId", userId);
 
             console.log("Login successful", response.data);
+            navigate(`${SwitchRoutes.dashboard}`)
           })
           .catch((error) => {
             console.error("Login error", error);
@@ -50,7 +56,7 @@ export const LoginForm: React.FC = () => {
 
   return (
     <div className={classes.container}>
-      <h2>Login Form</h2>
+      <h2 className={classes.title}>Login Form</h2>
       <form onSubmit={handleSubmit} className={classes.form}>
         <FormField
           required={true}

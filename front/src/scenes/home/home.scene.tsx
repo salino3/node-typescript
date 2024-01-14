@@ -1,6 +1,6 @@
 import React from 'react';
-import * as classes from './home.styles';
 import { HomeComponent } from '@/pods';
+import * as classes from './home.styles';
 
 export const HomeScene: React.FC = () => {
   return (
