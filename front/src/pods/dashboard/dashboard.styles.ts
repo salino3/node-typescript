@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { css } from "@emotion/css";
+import styled from '@emotion/styled';
+import {css} from '@emotion/css';
 
 
 export const Div = styled.div`
@@ -7,8 +7,4 @@ export const Div = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  min-height: 100vh;
-  width: 100%;
-
 `;
-

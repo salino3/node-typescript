@@ -6,4 +6,3 @@ export * from "./logout-button";
 export * from "./get-one-user";
 export * from "./update-user";
 export * from "./login-form";
-export * from "./all-users";
