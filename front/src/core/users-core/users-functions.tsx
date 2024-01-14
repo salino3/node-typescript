@@ -46,12 +46,12 @@ export const UsersFunctions = () => {
       });
   };
 
-  const deleteUser = (user: { email: string; password: string }) => {
+  const deleteUser = async (user: { email: string; password: string }) => {
     const token = getToken();
 
     const storedUserId = localStorage.getItem("my-identification-userId");
 
-    Axios.delete(
+    await Axios.delete(
       `${import.meta.env.VITE_APP_BASE_URL}/users/${storedUserId}`,
       {
         data: user,
@@ -67,7 +67,7 @@ export const UsersFunctions = () => {
           localStorage.removeItem("my-identification-userId");
         } else {
           alert("Could not clear cookies, try manually");
-        }
+        };
       })
       .catch((error) => {
         console.error("Error", error);

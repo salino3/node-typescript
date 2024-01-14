@@ -1,10 +1,13 @@
 import React from 'react';
-import { UsersFunctions } from '@/core';
+import { GlobalContext, MyState, UsersFunctions } from '@/core';
 import { Button, FormField } from '@/common';
 import * as classes from './delete-profile.styles';
 
 
 export const DeleteProfile: React.FC = () => {
+
+    const { getUsers } = React.useContext<MyState>(GlobalContext);
+
 
     const [user, setUser] = React.useState<{email: string; password: string;}>({
         email: "",
@@ -19,12 +22,18 @@ export const DeleteProfile: React.FC = () => {
     setUser({...user, [key]: value});
    };
 
-   const handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined = (
+   const handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined = async (
      event: React.FormEvent<HTMLFormElement>
    ) => {
      event.preventDefault();
 
-    deleteUser(user);
+      try {
+       await deleteUser(user)
+
+       getUsers();
+     } catch (error) {
+       console.error("Error deleting user", error);
+     };
    };
 
   return (
