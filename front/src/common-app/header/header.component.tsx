@@ -8,23 +8,23 @@ export const Header: React.FC = () => {
   return (
     <header className={classes.header}>
       <div className={classes.container}>
-        <div className="contentLeft">
-          <h3>My Web Page</h3>
+        <div className={classes.contentLeft}>
+          <h3 className={classes.titleHeader}>My Web Page</h3>
           <button>Home</button>
         </div>
-        <div className="contentRight">
+        <div className={classes.contentRight}>
           <nav className={classes.navbar}>
             <ul>
-              <li>
-                <Link to={"/"}>All User</Link>
+              <li className={classes.liAnchor}>
+                <Link to={"#"}>All User</Link>
               </li>
-              <li>
-                <Link to={"/"}>Delete profile</Link>
+              <li className={classes.liAnchor}>
+                <Link to={"#"}>Delete profile</Link>
               </li>
-              <li>
-                <Link to={"/"}>Modify profile</Link>
+              <li className={classes.liAnchor}>
+                <Link to={"#"}>Modify profile</Link>
               </li>
-              <li>
+              <li className={classes.liBtn}>
                 <button>Logout</button>
               </li>
             </ul>
