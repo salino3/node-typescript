@@ -7,7 +7,7 @@ export interface Routes {
 
 export const SwitchRoutes: Routes = {
   root: "/vite-react",
-  dashboard: "/vite-react/dashboard",
-  updateUser: "/vite-react/update-user",
-  updatePassword: "/vite-react/update-password",
+  dashboard: "/vite-react/private",
+  updateUser: "/vite-react/private/update-user",
+  updatePassword: "/vite-react/private/update-password",
 };

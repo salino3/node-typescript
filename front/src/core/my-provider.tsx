@@ -66,6 +66,7 @@ export const MyProvider: React.FC<Props> = ({children}) => {
      str.charAt(0).toUpperCase() + str.slice(1),
    [dispatch]
  );
+ 
 
      React.useEffect(() => {
       getUsers();

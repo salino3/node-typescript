@@ -8,6 +8,7 @@ export const container = css`
   width: 100%;
   margin: 10px;
   border: solid;
+  cursor: pointer;
 `;
 
 export const boxCardText = css`
