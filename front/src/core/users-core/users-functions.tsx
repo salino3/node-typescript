@@ -2,6 +2,11 @@ import Axios from 'axios';
 import { Users } from '../interface';
 
 
+interface LoginData {
+    email: string;
+    password: string;
+};
+
 const getToken = (): string | null => {
   const storedUserId = localStorage.getItem("my-identification-userId");
   return document.cookie.replace(
@@ -103,11 +108,45 @@ export const UsersFunctions = () => {
         });
   };
 
+const loginUser = async (
+  userData: LoginData,
+  setUserData: (value: React.SetStateAction<LoginData>) => void
+) => {
+  await Axios.post(`${import.meta.env.VITE_APP_BASE_URL}/login`, userData)
+    .then((response) => {
+      const { token, userId } = response.data;
+
+      // Save the token in the client coockies
+      document.cookie = `my-token-${userId}=${token}; path=/; secure; samesite=strict; max-age=${
+        2 * 60 * 60
+      }; domain=${import.meta.env.VITE_APP_DOMAIN}`;
+      // Save userId in localStorage
+      localStorage.setItem("my-identification-userId", userId);
+
+      console.log("Login successful", response.data);
+      
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("Login error", error);
+    })
+    .finally(() => {
+      setUserData({
+        email: "",
+        password: "",
+      });
+    });
+};
+
+
+
   return {
     createUser,
     updateUser,
     deleteUser,
     deleteUserByAdmin,
     getToken,
+    // status user
+    loginUser
   };
 }
