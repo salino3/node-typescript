@@ -1,18 +1,33 @@
 import React from 'react';
 import {Routes, Route} from 'react-router-dom';
-import { SwitchRoutes } from './interface';
 import { DashboardLayout, HomeLayout } from '@/layouts';
+import { PrivateRoutes, PublicRoutes } from './router-path';
 import { UpdatePassword, UpdateUser } from '@/pods/home/components';
+import { SwitchRoutes } from './interface';
+
 
 export const AppRoutes: React.FC = () => {
   
   return (
     <>
+        {/* Public Routes */}
       <Routes>
-        <Route path={SwitchRoutes?.root} element={<HomeLayout />} />
-        <Route path={SwitchRoutes?.dashboard} element={<DashboardLayout />} />
-        <Route path={SwitchRoutes?.updateUser + '/:id'} element={<UpdateUser />} />
-        <Route path={SwitchRoutes?.updatePassword + '/:id'} element={<UpdatePassword />} />
+        <Route path={SwitchRoutes?.root} element={<PublicRoutes />}>
+          <Route path={SwitchRoutes?.root} element={<HomeLayout />} />
+        </Route>
+
+          {/* Private Routes */}
+        <Route path={SwitchRoutes?.dashboard} element={<PrivateRoutes />}>
+          <Route path={SwitchRoutes?.dashboard} element={<DashboardLayout />} />
+          <Route
+            path={SwitchRoutes?.updateUser + "/:id"}
+            element={<UpdateUser />}
+          />
+          <Route
+            path={SwitchRoutes?.updatePassword + "/:id"}
+            element={<UpdatePassword />}
+          />
+        </Route>
       </Routes>
     </>
   );
