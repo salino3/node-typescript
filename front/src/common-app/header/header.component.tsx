@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Logout } from '@/pods/home/components';
 import * as classes from './header.styles';
 
 
@@ -25,7 +26,7 @@ export const Header: React.FC = () => {
                 <Link to={"#"}>Modify profile</Link>
               </li>
               <li className={classes.liBtn}>
-                <button>Logout</button>
+                <Logout />
               </li>
             </ul>
           </nav>

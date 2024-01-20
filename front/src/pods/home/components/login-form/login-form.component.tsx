@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
 import { UsersFunctions } from "@/core";
 import { Button, FormField } from "@/common";
 import { SwitchRoutes } from "@/routes";
@@ -28,16 +27,18 @@ export const LoginForm: React.FC = () => {
 
   const handleSubmit:
         | React.FormEventHandler<HTMLFormElement>
-        | undefined = async (event: React.FormEvent<HTMLFormElement>) => {
+        | undefined =  (event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault();
 
-          try {
-            await loginUser(userData, setUserData);
-            navigate(`${SwitchRoutes.dashboard}`);
-          } catch (error) {
+          loginUser(userData, setUserData)
+         .then(() => {
+           navigate(`${SwitchRoutes.dashboard}`);
+         })
+         .catch((error) => {       
             console.error("Error login user", error);
-          };
-        };
+         });
+       
+};
 
   return (
     <div className={classes.container}>

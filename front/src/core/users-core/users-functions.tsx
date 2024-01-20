@@ -108,6 +108,7 @@ export const UsersFunctions = () => {
         });
   };
 
+//
 const loginUser = async (
   userData: LoginData,
   setUserData: (value: React.SetStateAction<LoginData>) => void
@@ -138,6 +139,27 @@ const loginUser = async (
     });
 };
 
+//
+const logoutUser = async () => {
+
+ const storedUserId = localStorage.getItem("my-identification-userId");
+
+ await Axios.post(`${import.meta.env.VITE_APP_BASE_URL}/logout`, { storedUserId })
+   .then((res) => {
+     if (storedUserId) {
+       document.cookie = `my-token-${storedUserId}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; secure; samesite=strict;`;
+       localStorage.removeItem("my-identification-userId");
+       console.log("Logout successful");
+     } else {
+       alert("Could not clear cookies, try manually");
+     };
+     return res;
+   })
+   .catch((error) => {
+     console.error("Logout error", error);
+   });
+};
+
 
 
   return {
@@ -147,6 +169,7 @@ const loginUser = async (
     deleteUserByAdmin,
     getToken,
     // status user
-    loginUser
+    loginUser,
+    logoutUser
   };
 }
