@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import { GlobalContext, MyReducer, Users, UsersAllData, UsersFunctions, initialState } from '.';
+import { DecodedToken, GlobalContext, MyReducer, Users, UsersAllData, UsersFunctions, initialState } from '.';
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -72,6 +72,8 @@ export const MyProvider: React.FC<Props> = ({children}) => {
       getUsers();
      }, []);
 
+     // User Data
+    const [currentlyUserData, setCurrentlyUserData] = React.useState<DecodedToken | undefined>() || {};
 
 
   return (
@@ -83,6 +85,9 @@ export const MyProvider: React.FC<Props> = ({children}) => {
         getUserData,
         toggleTheme,
         capitalizing,
+        // 
+        currentlyUserData,
+        setCurrentlyUserData,
       }}
     >
       <div id={state.theme}>{children}</div>

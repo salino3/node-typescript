@@ -44,6 +44,14 @@ export interface Users {
   role?: string;
 };
 
+export interface DecodedToken {
+  userId: string;
+  email: string;
+  role: string;
+  iat: number;
+  exp: number;
+};
+
 //
 export interface State {
   theme: string;
@@ -76,4 +84,6 @@ export interface MyState {
   getUserData: (userID: string) => void;
   toggleTheme: () => void;
   capitalizing: (str: string) => string;
+  currentlyUserData: DecodedToken | undefined;
+  setCurrentlyUserData: React.Dispatch<React.SetStateAction<DecodedToken | undefined>>;
 };

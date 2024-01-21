@@ -1,10 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { GlobalContext, MyState } from '@/core';
+import { Button } from '@/common/button';
 import { Logout } from '@/pods/home/components';
+import { SwitchRoutes } from '@/routes';
 import * as classes from './header.styles';
 
 
 export const Header: React.FC = () => {
+
+    const { currentlyUserData } = React.useContext<MyState>(GlobalContext);
+
+    const navigate = useNavigate();
 
   return (
     <header className={classes.header}>
@@ -28,6 +35,16 @@ export const Header: React.FC = () => {
               <li className={classes.liBtn}>
                 <Logout />
               </li>
+              {
+                currentlyUserData && currentlyUserData?.role === 'admin' &&
+                <li className={classes.liBtn}>
+                <Button
+                 text='Admin page'
+                 click={() => navigate(currentlyUserData?.role === 'admin' ? SwitchRoutes.adminPage : '/')}
+                 divWidth={120}
+                 />
+              </li>
+                }
             </ul>
           </nav>
         </div>
