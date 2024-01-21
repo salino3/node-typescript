@@ -1,5 +1,8 @@
+import React from 'react';
 import Axios from 'axios';
-import { Users } from '../interface';
+import jwtDecode from "jwt-decode";
+import { GlobalContext } from '../global-context';
+import { MyState, Users } from '../interface';
 
 
 interface LoginData {
@@ -17,7 +20,10 @@ const getToken = (): string | null => {
   );
 };
 
+//
 export const UsersFunctions = () => {
+
+  const { setCurrentlyUserData } = React.useContext<MyState>(GlobalContext);
 
   //
  const createUser = async (newUser: Users) => {
@@ -125,7 +131,10 @@ const loginUser = async (
       localStorage.setItem("my-identification-userId", userId);
 
       console.log("Login successful", response.data);
-      
+      const decodedToken: any = jwtDecode(response.data.token);
+      if(decodedToken){
+       setCurrentlyUserData(decodedToken);
+      };
       return response.data;
     })
     .catch((error) => {
