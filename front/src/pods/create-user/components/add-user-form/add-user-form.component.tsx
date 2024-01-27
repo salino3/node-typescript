@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GlobalContext, MyState, Users, UsersFunctions } from '@/core';
 import { Button, FormField } from '@/common';
 import { GenderFormField } from '@/common-app';
@@ -14,6 +15,8 @@ export const AddUserForm: React.FC = () => {
 
    const { getUsers } = React.useContext<MyState>(GlobalContext);
    const { createUser } = UsersFunctions();
+
+   const navigate = useNavigate();
 
     
     const genders: Genders[] = [
@@ -49,7 +52,7 @@ export const AddUserForm: React.FC = () => {
 
           if(res?.data){
             getUsers();
-            window.location.href = SwitchRoutes.root;
+            navigate(SwitchRoutes.root);
           };
       };
 

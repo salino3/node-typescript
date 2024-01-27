@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
-import { DecodedToken, GlobalContext, MyReducer, Users, UsersAllData, UsersFunctions, initialState } from '.';
+import jwtDecode from "jwt-decode";
+import { DecodedToken, GlobalContext, MyReducer, UsersFunctions, initialState } from '.';
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -9,6 +10,7 @@ interface Props {
 export const MyProvider: React.FC<Props> = ({children}) => {
 
     const [state, dispatch] = React.useReducer(MyReducer, initialState);
+    const { getToken } = UsersFunctions();
 
 
   const getUsers = React.useCallback(() => {
@@ -74,6 +76,17 @@ export const MyProvider: React.FC<Props> = ({children}) => {
 
      // User Data
     const [currentlyUserData, setCurrentlyUserData] = React.useState<DecodedToken | undefined>() || {};
+    
+    ///* authToken
+    let authToken = getToken();
+    React.useEffect(() => {
+    
+    if (authToken) {
+    const decodedToken: any = jwtDecode(authToken);
+    setCurrentlyUserData(decodedToken);
+
+    };
+  }, [authToken]);
 
 
   return (

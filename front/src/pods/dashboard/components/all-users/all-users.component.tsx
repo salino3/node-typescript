@@ -13,7 +13,7 @@ export const AllUsers: React.FC = () => {
   return (
     <div className={classes.container}>
       <h2>Users List</h2>
-      <button onClick={() => setcounter(counter + 10)}>+ 10</button>
+      <button className={classes.btnPlus10} onClick={() => setcounter(counter + 10)}>+ 10</button>
       <div>
         {!users || users.length == 0 ? (
           <h3>there are no users..</h3>
@@ -26,7 +26,7 @@ export const AllUsers: React.FC = () => {
             ))
         )}
       </div>
-      <button onClick={() => setcounter(counter + 10)}>+ 10</button>
+      <button className={classes.btnPlus10}  onClick={() => setcounter(counter + 10)}>+ 10</button>
     </div>
   );
 }

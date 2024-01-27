@@ -10,7 +10,13 @@ export const container = css`
 
 `;
 
+export const btnPlus10 = css`
 
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 12px;
+
+` ;
 
 
 
