@@ -131,7 +131,7 @@ const loginUser = async (
       localStorage.setItem("my-identification-userId", userId);
 
       console.log("Login successful", response.data);
-      const decodedToken: any = jwtDecode(response.data.token);
+      const decodedToken: any = jwtDecode(token);
       if(decodedToken){
        setCurrentlyUserData(decodedToken);
       };

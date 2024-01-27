@@ -2,6 +2,7 @@ import React from 'react';
 import { GlobalContext, MyState, Users, UsersFunctions } from '@/core';
 import { Button, FormField } from '@/common';
 import { GenderFormField } from '@/common-app';
+import { SwitchRoutes } from '@/routes';
 import * as classes from './add-user-form.styles';
 
 interface Genders {
@@ -48,6 +49,7 @@ export const AddUserForm: React.FC = () => {
 
           if(res?.data){
             getUsers();
+            window.location.href = SwitchRoutes.root;
           };
       };
 
