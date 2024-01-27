@@ -33,7 +33,14 @@ export const Header: React.FC = () => {
                 <Link to={"#"}>Modify profile</Link>
               </li>
               <li className={classes.liBtn}>
-                <Logout />
+                {currentlyUserData ? 
+                <Logout /> :
+                    <Button
+                 text='Create profile'
+                 click={() => navigate(SwitchRoutes.createUser)}
+                 divWidth={120}
+                 />
+                }
               </li>
               {
                 currentlyUserData && currentlyUserData?.role === 'admin' &&

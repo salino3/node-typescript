@@ -1,6 +1,6 @@
 import React from 'react';
 import {Routes, Route} from 'react-router-dom';
-import { DashboardLayout, HomeLayout } from '@/layouts';
+import { CreateUserLayout, DashboardLayout, HomeLayout } from '@/layouts';
 import { AdminRoutes, PrivateRoutes, PublicRoutes } from './router-path';
 import { UpdatePassword, UpdateUser } from '@/pods/home/components';
 import { SwitchRoutes } from './interface';
@@ -14,6 +14,7 @@ export const AppRoutes: React.FC = () => {
       <Routes>
         <Route path={SwitchRoutes?.root} element={<PublicRoutes />}>
           <Route path={SwitchRoutes?.root} element={<HomeLayout />} />
+          <Route path={SwitchRoutes?.createUser} element={<CreateUserLayout />} />
         </Route>
 
         {/* Private Routes */}
@@ -28,12 +29,11 @@ export const AppRoutes: React.FC = () => {
             element={<UpdatePassword />}
           />
         </Route>
-      {/* Admin Routes */}
-      <Route path={SwitchRoutes.adminPage} element={<AdminRoutes />}>
-        <Route path={SwitchRoutes?.adminPage} element={<h1>Admin</h1>} />
-      </Route>
+        {/* Admin Routes */}
+        <Route path={SwitchRoutes.adminPage} element={<AdminRoutes />}>
+          <Route path={SwitchRoutes?.adminPage} element={<h1>Admin</h1>} />
+        </Route>
       </Routes>
-
     </>
   );
 }
