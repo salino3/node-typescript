@@ -131,7 +131,7 @@ const loginUser = async (
       localStorage.setItem("my-identification-userId", userId);
 
       console.log("Login successful", response.data);
-      const decodedToken: any = jwtDecode(response.data.token);
+      const decodedToken: any = jwtDecode(token);
       if(decodedToken){
        setCurrentlyUserData(decodedToken);
       };
@@ -158,6 +158,8 @@ const logoutUser = async () => {
      if (storedUserId) {
        document.cookie = `my-token-${storedUserId}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; secure; samesite=strict;`;
        localStorage.removeItem("my-identification-userId");
+       setCurrentlyUserData(undefined);
+
        console.log("Logout successful");
      } else {
        alert("Could not clear cookies, try manually");
