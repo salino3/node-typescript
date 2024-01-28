@@ -5,21 +5,15 @@ import * as classes from "./update-password.styles";
 
 interface Props {
   newUser: Users;
-  setNewUser: React.Dispatch<React.SetStateAction<Users>>;
+  handleChange: (key: keyof Users) => (event: any) => void;
 };
 
 export const UpdatePassword: React.FC<Props> = (props) => {
-  const { newUser, setNewUser } = props;
+  const { newUser, handleChange } = props;
 
-   const { updateUser } = UsersFunctions();
+  const { updateUser } = UsersFunctions();
 
-   const [confirmNewPassword, setConfirmNewPassword] = React.useState<string>("");
-
-
-  const handleChange = (key: keyof Users) => (event: any) => {
-    const { value } = event.target;
-    setNewUser({ ...newUser, [key]: value });
-  };
+  const [confirmNewPassword, setConfirmNewPassword] = React.useState<string>("");
 
   const handleChangeConfirmedPsw = (event: any) => {
       setConfirmNewPassword(event.target.value);

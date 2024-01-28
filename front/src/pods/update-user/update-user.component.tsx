@@ -15,6 +15,11 @@ export const UpdateUser: React.FC = () => {
     const [newUser, setNewUser] = React.useState<Users>(user);
     const [changeDataOrPsw, setChangeDataOrPsw] = React.useState<boolean>(true);
 
+  const handleChange = (key: keyof Users) => (event: any) => {
+    const { value } = event.target;
+    setNewUser({ ...newUser, [key]: value });
+  };
+
 
   React.useEffect(() => {
      if (id) {
@@ -38,9 +43,9 @@ export const UpdateUser: React.FC = () => {
         </Link>
       </h4>
       {changeDataOrPsw ? (
-        <UpdateUserData newUser={newUser} setNewUser={setNewUser} />
+        <UpdateUserData newUser={newUser} handleChange={handleChange} />
       ) : (
-        <UpdatePassword newUser={newUser} setNewUser={setNewUser} />
+        <UpdatePassword newUser={newUser} handleChange={handleChange} />
       )}
     </classes.Div>
   );

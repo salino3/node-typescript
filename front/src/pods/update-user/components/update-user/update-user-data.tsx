@@ -6,7 +6,7 @@ import * as classes from "./update-user.styles";
 
 interface Props {
   newUser: Users;
-  setNewUser: React.Dispatch<React.SetStateAction<Users>>;
+  handleChange: (key: keyof Users) => (event: any) => void;
 };
 
 interface Genders {
@@ -14,7 +14,7 @@ interface Genders {
 };
 
 export const UpdateUserData: React.FC<Props> = (props) => {
-  const { newUser, setNewUser } = props;
+  const { newUser, handleChange } = props;
 
 const { updateUser } = UsersFunctions();
 
@@ -26,12 +26,6 @@ const { updateUser } = UsersFunctions();
     { value: "other" },
     { value: "prefer not to say" },
   ];
-
-
-  const handleChange = (key: keyof Users) => (event: any) => {
-    const { value } = event.target;
-    setNewUser({ ...newUser, [key]: value });
-  };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined = (
     event: React.FormEvent<HTMLFormElement>
