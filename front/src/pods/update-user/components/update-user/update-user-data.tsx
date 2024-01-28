@@ -1,25 +1,25 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { GlobalContext, MyState, Users, UsersFunctions } from "@/core";
+import { GlobalContext, MyState, Users, UsersAllData, UsersFunctions } from "@/core";
 import { Button, FormField } from "@/common";
 import { GenderFormField } from "@/common-app";
 import { SwitchRoutes } from "@/routes";
 import * as classes from "./update-user.styles";
 
+interface Props {
+  user: UsersAllData;
+}
+
 interface Genders {
   value: string;
 };
 
-export const UpdateUserData: React.FC = () => {
+export const UpdateUserData: React.FC<Props> = (props) => {
+  const {user} = props;
 
-const { getUserData, state } = React.useContext<MyState>(GlobalContext);
-const {user} = state;
+
 
 const { updateUser } = UsersFunctions();
-
-const {id} = useParams();
-
-console.log("ID-> ", user)
 
 
   const genders: Genders[] = [
@@ -47,11 +47,6 @@ console.log("ID-> ", user)
      updateUser(newUser);
   };
 
-  React.useEffect(() => {
-    if(id) {
-     getUserData(id);
-    };
-  }, [id]);
 
     React.useEffect(() => {
       setNewUser(user);
@@ -60,10 +55,6 @@ console.log("ID-> ", user)
 
   return (
     <div className={classes.container}>
-      <h2>Update your Profile</h2>
-      <h4>
-        <Link to={`${SwitchRoutes.updatePassword}/${newUser?.id}`}>Update Password</Link>
-      </h4>
       <form onSubmit={handleSubmit} className={classes.form}>
         <FormField
           required

@@ -2,12 +2,12 @@ import {css} from '@emotion/css';
 
 
 export const container = css`
-  padding-top: 20px;
+  padding-top: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100%;
+  min-height: 100vh;
 `;
 
 export const form = css`
