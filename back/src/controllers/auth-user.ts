@@ -34,7 +34,8 @@ export const userLogin = async (req: Request, res: Response): Promise<void> => {
       secure: process.env.NODE_ENV === "production", // Establish at true in 'production' for use HTTPS
       maxAge: 2 * 60 * 60 * 1000, // Time of expiration de expiración in milliseconds (2 hours)
       sameSite: "strict", // Against a malicious link on an external site), which improves security against CSRF.
-      domain: "localhost",
+      // todo: for production add domain
+      // domain: "*",
     });
 
     res.status(200).json({ message: "Login successful", token, userId: user.id });
