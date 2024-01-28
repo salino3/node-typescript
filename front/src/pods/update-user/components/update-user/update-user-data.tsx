@@ -1,25 +1,22 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
-import { GlobalContext, MyState, Users, UsersFunctions } from "@/core";
+import { Users, UsersFunctions } from "@/core";
 import { Button, FormField } from "@/common";
 import { GenderFormField } from "@/common-app";
-import { SwitchRoutes } from "@/routes";
 import * as classes from "./update-user.styles";
+
+interface Props {
+  newUser: Users;
+  handleChange: (key: keyof Users) => (event: any) => void;
+};
 
 interface Genders {
   value: string;
 };
 
-export const UpdateUser: React.FC = () => {
-
-const { getUserData, state } = React.useContext<MyState>(GlobalContext);
-const {user} = state;
+export const UpdateUserData: React.FC<Props> = (props) => {
+  const { newUser, handleChange } = props;
 
 const { updateUser } = UsersFunctions();
-
-const {id} = useParams();
-
-console.log("ID-> ", user)
 
 
   const genders: Genders[] = [
@@ -30,14 +27,6 @@ console.log("ID-> ", user)
     { value: "prefer not to say" },
   ];
 
-    const [newUser, setNewUser] = React.useState<Users>(user);
-
-
-  const handleChange = (key: keyof Users) => (event: any) => {
-    const { value } = event.target;
-    setNewUser({ ...newUser, [key]: value });
-  };
-
   const handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined = (
     event: React.FormEvent<HTMLFormElement>
    ) => {
@@ -47,23 +36,9 @@ console.log("ID-> ", user)
      updateUser(newUser);
   };
 
-  React.useEffect(() => {
-    if(id) {
-     getUserData(id);
-    };
-  }, [id]);
-
-    React.useEffect(() => {
-      setNewUser(user);
-    }, [user]);
-  
 
   return (
     <div className={classes.container}>
-      <h2>Update your Profile</h2>
-      <h4>
-        <Link to={`${SwitchRoutes.updatePassword}/${newUser?.id}`}>Update Password</Link>
-      </h4>
       <form onSubmit={handleSubmit} className={classes.form}>
         <FormField
           required

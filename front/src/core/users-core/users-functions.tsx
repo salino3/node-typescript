@@ -126,7 +126,8 @@ const loginUser = async (
       // Save the token in the client coockies
       document.cookie = `my-token-${userId}=${token}; path=/; secure; samesite=strict; max-age=${
         2 * 60 * 60
-      }; domain=${import.meta.env.VITE_APP_DOMAIN}`;
+      }`;
+      // todo: for production add domain -> domain=${import.meta.env.VITE_APP_DOMAIN}
       // Save userId in localStorage
       localStorage.setItem("my-identification-userId", userId);
 

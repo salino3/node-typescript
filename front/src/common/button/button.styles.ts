@@ -1,3 +1,4 @@
+import { theme } from "@/themes";
 import { css } from "@emotion/css";
 
 export const container = (divHeight: number, divWidth: number) => css`
@@ -15,6 +16,8 @@ export const btn = (btnHeight: number) => css`
   align-items: center;
   border: solid 1px;
   padding: 3px;
+  color: ${theme.textColor.primary};
+  font-weight: 600;
   border-radius: 5px;
   height: ${btnHeight}px;
   cursor: pointer;

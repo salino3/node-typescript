@@ -1,30 +1,19 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { GlobalContext, MyState, Users, UsersFunctions } from "@/core";
+import { Users, UsersFunctions } from "@/core";
 import { Button, FormField } from "@/common";
 import * as classes from "./update-password.styles";
 
+interface Props {
+  newUser: Users;
+  handleChange: (key: keyof Users) => (event: any) => void;
+};
 
+export const UpdatePassword: React.FC<Props> = (props) => {
+  const { newUser, handleChange } = props;
 
-export const UpdatePassword: React.FC = () => {
+  const { updateUser } = UsersFunctions();
 
-const { getUserData, state } = React.useContext<MyState>(GlobalContext);
-const {user} = state;
-
-const { updateUser } = UsersFunctions();
-
-const {id} = useParams();
-
-
-    const [newPassword, setNewPassword] = React.useState<Users>(user);
-    const [confirmNewPassword, setConfirmNewPassword] = React.useState<string>("");
-
-
-
-  const handleChange = (key: keyof Users) => (event: any) => {
-    const { value } = event.target;
-    setNewPassword({ ...newPassword, [key]: value });
-  };
+  const [confirmNewPassword, setConfirmNewPassword] = React.useState<string>("");
 
   const handleChangeConfirmedPsw = (event: any) => {
       setConfirmNewPassword(event.target.value);
@@ -35,35 +24,21 @@ const {id} = useParams();
    ) => {
      event.preventDefault();
 
-     console.log("Update->", newPassword)
-     if(newPassword?.password === confirmNewPassword){
-      updateUser(newPassword);
+     console.log("Update->", newUser)
+     if(newUser?.password === confirmNewPassword){
+      updateUser(newUser);
     } else {
       alert("The passwords do not match");
     };
   };
 
-  React.useEffect(() => {
-    if(id) {
-     getUserData(id);
-    };
-  }, [id]);
-
-  React.useEffect(() => {
-    if (user) {
-      setNewPassword(user);
-    };
-  }, [user]);
-
- 
 
   return (
     <div className={classes.container}>
-      <h2>Update your Password</h2>
       <form onSubmit={handleSubmit} className={classes.form}>
         <FormField
           required
-          nameValue={newPassword.password}
+          nameValue={newUser.password}
           handleChange={handleChange("password")}
           name="New Password"
           type="password"

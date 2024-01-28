@@ -4,8 +4,10 @@ export const container = css`
 
  margin: 10px 0px;
 
-input {
+ input {
     margin: 3px;
-}
+    padding-left: 3px;
+    outline: none;
+  }
 `;
 

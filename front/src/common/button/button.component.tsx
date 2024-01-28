@@ -28,8 +28,7 @@ export const Button: React.FC<Props> = (props) => {
       <button
         type={type}
         onClick={click}
-        className={classes.btn(btnHeight)}
-      >
+        className={classes.btn(btnHeight)} >
         {text}
       </button>
     </div>

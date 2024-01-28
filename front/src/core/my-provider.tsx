@@ -28,14 +28,8 @@ export const MyProvider: React.FC<Props> = ({children}) => {
 
 //
   const getUserData = React.useCallback((userID: string) => {
-    const storedUserId = localStorage.getItem("my-identification-userId");
 
-    const token = document.cookie.replace(
-      new RegExp(
-        `(?:(?:^|.*;\\s*)my-token-${storedUserId}\\s*=\\s*([^;]*).*$)|^.*$`
-      ),
-      "$1"
-    );
+    const token = getToken();
 
     Axios.get(`${import.meta.env.VITE_APP_BASE_URL}/users/${userID}`, {
       headers: {

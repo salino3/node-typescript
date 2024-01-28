@@ -123,6 +123,7 @@ export const getOne = async (req: Request, res: Response): Promise<void> => {
 export const updateUser = async (req: Request, res: Response): Promise<void> => {
 
    const id = req.params.id;
+   const token: string | undefined = req.headers.authorization?.split(" ")[1];
    const userData = req.body; 
 
    try {
@@ -131,10 +132,29 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
      if (!existingUser) {
        res.status(404).json({ message: "User not found" });
        return;
+     }
+
+     //
+     if (!token) {
+       res.status(403).json({
+         message: "Forbidden: Token not provided",
+       });
+       return;
      };
 
-     // Verify if new email is already in use
-     if (userData.email !== existingUser.email) {
+     const decodedToken: any = jwt.verify(token, `${process.env.SECRET_KEY}`);
+
+     if (decodedToken.userId !== id && decodedToken.role !== "admin") {
+       res.status(403).json({
+         message: "Forbidden: You don't have permission to update this user",
+       });
+       return;
+     };
+
+     //
+
+       // Verify if new email is already in use
+       if (userData.email !== existingUser.email) {
        const userWithNewEmail = await UserModel.findOne({
          where: { email: userData.email },
        });
@@ -143,13 +163,13 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
          res.status(400).json({ message: "Error: Email is already in use" });
          return;
        };
-     };
+     }
 
      // Encrypting password of req.body
      if (userData.password) {
        const hashedPassword = await hashPassword(userData.password);
        userData.password = hashedPassword;
-     };
+     }
 
      await existingUser.update({ ...userData, isAdult: userData.age >= 18 });
 

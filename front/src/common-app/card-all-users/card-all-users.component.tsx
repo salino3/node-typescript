@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UsersAllData } from '@/core';
 import { SwitchRoutes } from '@/routes';
+import { Button } from '@/common/button';
 import * as classes from './card-all-users.styles';
 
 interface Props {
@@ -10,11 +12,11 @@ interface Props {
 export const CardAllUsers: React.FC<Props> = (props) => {
     const {user} = props;
 
+    const navigate = useNavigate();
 
   return (
-    <div className={classes.container} onClick={() => {
-       window.location.href = `${SwitchRoutes.updateUser}/${user.id}`
-      }}>
+    <div
+      className={classes.container}>
       <div className={classes.boxCardText}>
         <h3 className={classes.cardText}>
           <span className={classes.spanType}>Name:</span>
@@ -58,6 +60,16 @@ export const CardAllUsers: React.FC<Props> = (props) => {
           <span className={classes.spanType}>Job:</span>
           <span className={classes.spanValue}>{user?.job}</span>
         </h3>
+      </div>
+      <div className={classes.boxBtns}>
+        <Button text="Update" 
+        
+        click={() => navigate(`${SwitchRoutes.updateUser}/${user.id}`)}
+        />
+
+        <Button
+          text="Delete"
+        />
       </div>
     </div>
   );
