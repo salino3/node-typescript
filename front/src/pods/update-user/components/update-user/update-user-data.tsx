@@ -1,22 +1,20 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
-import { GlobalContext, MyState, Users, UsersAllData, UsersFunctions } from "@/core";
+import { Users, UsersFunctions } from "@/core";
 import { Button, FormField } from "@/common";
 import { GenderFormField } from "@/common-app";
-import { SwitchRoutes } from "@/routes";
 import * as classes from "./update-user.styles";
 
 interface Props {
-  user: UsersAllData;
-}
+  newUser: Users;
+  setNewUser: React.Dispatch<React.SetStateAction<Users>>;
+};
 
 interface Genders {
   value: string;
 };
 
 export const UpdateUserData: React.FC<Props> = (props) => {
-  const {user} = props;
-
+  const { newUser, setNewUser } = props;
 
 const { updateUser } = UsersFunctions();
 
@@ -28,8 +26,6 @@ const { updateUser } = UsersFunctions();
     { value: "other" },
     { value: "prefer not to say" },
   ];
-
-    const [newUser, setNewUser] = React.useState<Users>(user);
 
 
   const handleChange = (key: keyof Users) => (event: any) => {
@@ -46,11 +42,6 @@ const { updateUser } = UsersFunctions();
      updateUser(newUser);
   };
 
-
-    React.useEffect(() => {
-      setNewUser(user);
-    }, [user]);
-  
 
   return (
     <div className={classes.container}>

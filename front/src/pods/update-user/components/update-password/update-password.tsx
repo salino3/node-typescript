@@ -1,28 +1,24 @@
 import React from "react";
-import { Users, UsersAllData, UsersFunctions } from "@/core";
+import { Users, UsersFunctions } from "@/core";
 import { Button, FormField } from "@/common";
 import * as classes from "./update-password.styles";
 
 interface Props {
-  user: UsersAllData;
+  newUser: Users;
+  setNewUser: React.Dispatch<React.SetStateAction<Users>>;
 };
 
 export const UpdatePassword: React.FC<Props> = (props) => {
-  const {user} = props;
+  const { newUser, setNewUser } = props;
 
+   const { updateUser } = UsersFunctions();
 
-const { updateUser } = UsersFunctions();
-
-
-
-    const [newPassword, setNewPassword] = React.useState<Users>(user);
-    const [confirmNewPassword, setConfirmNewPassword] = React.useState<string>("");
-
+   const [confirmNewPassword, setConfirmNewPassword] = React.useState<string>("");
 
 
   const handleChange = (key: keyof Users) => (event: any) => {
     const { value } = event.target;
-    setNewPassword({ ...newPassword, [key]: value });
+    setNewUser({ ...newUser, [key]: value });
   };
 
   const handleChangeConfirmedPsw = (event: any) => {
@@ -34,28 +30,21 @@ const { updateUser } = UsersFunctions();
    ) => {
      event.preventDefault();
 
-     console.log("Update->", newPassword)
-     if(newPassword?.password === confirmNewPassword){
-      updateUser(newPassword);
+     console.log("Update->", newUser)
+     if(newUser?.password === confirmNewPassword){
+      updateUser(newUser);
     } else {
       alert("The passwords do not match");
     };
   };
 
-  React.useEffect(() => {
-    if (user) {
-      setNewPassword(user);
-    };
-  }, [user]);
-
- 
 
   return (
     <div className={classes.container}>
       <form onSubmit={handleSubmit} className={classes.form}>
         <FormField
           required
-          nameValue={newPassword.password}
+          nameValue={newUser.password}
           handleChange={handleChange("password")}
           name="New Password"
           type="password"
