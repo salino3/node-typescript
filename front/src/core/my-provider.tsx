@@ -28,7 +28,6 @@ export const MyProvider: React.FC<Props> = ({children}) => {
 
 //
   const getUserData = React.useCallback((userID: string) => {
-    // const storedUserId = localStorage.getItem("my-identification-userId");
 
     const token = getToken();
 

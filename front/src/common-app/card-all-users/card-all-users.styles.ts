@@ -1,3 +1,4 @@
+import { theme } from '@/themes';
 import {css} from '@emotion/css';
 
 export const container = css`
@@ -8,7 +9,6 @@ export const container = css`
   width: 100%;
   margin: 10px;
   border: solid;
-  cursor: pointer;
 `;
 
 export const boxCardText = css`
@@ -45,4 +45,9 @@ export const spanValue = css`
   justify-content: flex-start;
 `;
 
-
+export const boxBtns = css`
+ display: flex;
+ flex-direction: row;
+ margin: 5px;
+ gap: 12px;
+`;
