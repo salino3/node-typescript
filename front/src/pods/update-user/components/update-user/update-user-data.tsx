@@ -10,7 +10,7 @@ interface Genders {
   value: string;
 };
 
-export const UpdateUser: React.FC = () => {
+export const UpdateUserData: React.FC = () => {
 
 const { getUserData, state } = React.useContext<MyState>(GlobalContext);
 const {user} = state;

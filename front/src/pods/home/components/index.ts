@@ -3,5 +3,4 @@ export * from "./update-password";
 export * from "./delete-profile";
 export * from "./logout-button";
 export * from "./get-one-user";
-export * from "./update-user";
 export * from "./login-form";
