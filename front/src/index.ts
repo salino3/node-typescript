@@ -39,6 +39,9 @@ ol, ul {
 blockquote, q {
 	quotes: none;
 }
+a:active {
+color: #FF9500;
+}
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
