@@ -18,7 +18,6 @@ export const UpdateUserData: React.FC<Props> = (props) => {
   const {user} = props;
 
 
-
 const { updateUser } = UsersFunctions();
 
 

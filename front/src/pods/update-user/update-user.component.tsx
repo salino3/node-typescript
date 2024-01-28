@@ -31,7 +31,11 @@ export const UpdateUser: React.FC = () => {
           {changePsw ? "Update Password" : "Update user data"}
         </Link>
       </h4>
-      {changePsw ? <UpdateUserData user={user} /> : <UpdatePassword />}
+      {changePsw ? (
+        <UpdateUserData user={user} />
+      ) : (
+        <UpdatePassword user={user} />
+      )}
     </classes.Div>
   );
 }

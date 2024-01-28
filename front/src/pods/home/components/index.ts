@@ -1,5 +1,4 @@
 export * from "./delete-profile-by-admin";
-export * from "./update-password";
 export * from "./delete-profile";
 export * from "./logout-button";
 export * from "./get-one-user";

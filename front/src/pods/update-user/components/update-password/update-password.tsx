@@ -1,19 +1,18 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { GlobalContext, MyState, Users, UsersFunctions } from "@/core";
+import { Users, UsersAllData, UsersFunctions } from "@/core";
 import { Button, FormField } from "@/common";
 import * as classes from "./update-password.styles";
 
+interface Props {
+  user: UsersAllData;
+};
 
+export const UpdatePassword: React.FC<Props> = (props) => {
+  const {user} = props;
 
-export const UpdatePassword: React.FC = () => {
-
-const { getUserData, state } = React.useContext<MyState>(GlobalContext);
-const {user} = state;
 
 const { updateUser } = UsersFunctions();
 
-const {id} = useParams();
 
 
     const [newPassword, setNewPassword] = React.useState<Users>(user);
@@ -44,12 +43,6 @@ const {id} = useParams();
   };
 
   React.useEffect(() => {
-    if(id) {
-     getUserData(id);
-    };
-  }, [id]);
-
-  React.useEffect(() => {
     if (user) {
       setNewPassword(user);
     };
@@ -59,7 +52,6 @@ const {id} = useParams();
 
   return (
     <div className={classes.container}>
-      <h2>Update your Password</h2>
       <form onSubmit={handleSubmit} className={classes.form}>
         <FormField
           required
