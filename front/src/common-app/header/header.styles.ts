@@ -52,7 +52,7 @@ export const navbar = css`
     align-items: center;
     justify-content: center;
     border-bottom: solid ${theme.background.primary};
-    padding: 0px 10px 3px;
+    padding: 0px 14px 3px;
     list-style-type: none;
 
   }
