@@ -17,8 +17,7 @@ export const CardAllUsers: React.FC<Props> = (props) => {
     const navigate = useNavigate();
 
   return (
-    <div
-      className={classes.container}>
+    <div className={classes.container}>
       <div className={classes.boxCardText}>
         <h3 className={classes.cardText}>
           <span className={classes.spanType}>Name:</span>
@@ -63,16 +62,21 @@ export const CardAllUsers: React.FC<Props> = (props) => {
           <span className={classes.spanValue}>{user?.job}</span>
         </h3>
       </div>
- {currentlyUserData && currentlyUserData?.userId === user?.id || currentlyUserData && currentlyUserData?.role === "admin" ? 
-      <div className={classes.boxBtns}>
-        <Button text="Update" 
-        click={() => navigate(`${SwitchRoutes.updateUser}/${user.id}`)}
-        />
-        <Button
-          text="Delete"
-        />
-      </div>  : "" }
-          
+      {(currentlyUserData && currentlyUserData?.userId === user?.id) ||
+      (currentlyUserData && currentlyUserData?.role === "admin") ? (
+        <div className={classes.boxBtns}>
+          <Button
+            text="Update"
+            click={() => navigate(`${SwitchRoutes.updateUser}/${user.id}`)}
+          />
+          <Button
+            text="Delete"
+            click={() => navigate(`${SwitchRoutes.deleteUser}/${user.id}`)}
+          />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
