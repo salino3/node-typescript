@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { ItemsForm } from "../items-form-search-list";
 import { CardInput } from "../card-search-user-input";
 import { SwitchRoutes } from "@/routes";
+import { FormField } from "../form-field";
+import { Button } from "../button";
 import * as classes from './search-user-list.styles'
 
 
@@ -35,7 +36,6 @@ export const SearchUserList: React.FC = () => {
     ) {
       Searching = event.target.user.value;
     }
-    alert(Searching)
     navigate(`${SwitchRoutes.updateUser}/${Searching}`);
     setFirst("");
   };
@@ -58,8 +58,17 @@ export const SearchUserList: React.FC = () => {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ItemsForm handleChange={handleChange} first={first} />
+    <form className={classes.form} onSubmit={handleSubmit}>
+      <FormField
+        handleChange={handleChange}
+        name={"user"}
+        required
+        type="text"
+        pl="Who are you looking for?"
+        txtName="search user with ID or email"
+        nameValue={first}
+      />
+      <Button text={"Search"} disabled={!!first} />
       <div className={classes.divCard} ref={divCardRef}>
         {toggleList && first ? (
           <CardInput first={first} setFirst={setFirst} />

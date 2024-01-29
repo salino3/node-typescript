@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GlobalContext, MyState, Users, UsersFunctions } from '@/core';
+import { GlobalContext, MyState, Users, UsersFunctions, areAllParamsFilled } from '@/core';
 import { Button, FormField } from '@/common';
 import { GenderFormField } from '@/common-app';
 import { SwitchRoutes } from '@/routes';
@@ -59,6 +59,7 @@ export const AddUserForm: React.FC = () => {
 
       React.useEffect(() => {
         console.log(newUser);    
+        console.log("areAllParamsFilled", areAllParamsFilled(newUser));
       }, [newUser]);
 
   return (
@@ -114,7 +115,12 @@ export const AddUserForm: React.FC = () => {
           required
           genders={genders}
         />
-        <Button text="Submit" type="submit" myStyle={classes.btnForm} />
+        <Button
+          disabled={areAllParamsFilled(newUser)}
+          text="Submit"
+          type="submit"
+          myStyle={classes.btnForm}
+        />
       </form>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { UsersFunctions } from "@/core";
+import { Button } from "@/common/button";
 import { SwitchRoutes } from "@/routes";
 import * as classes from "./logout-button.styles";
 
@@ -24,7 +25,12 @@ export const Logout: React.FC = () => {
 
   return (
     <div className={classes.container}>
-      <button type="submit" onClick={() => handleLogout()}>Logout</button>
+      <Button
+       disabled
+       type="submit"
+       click={() => handleLogout()}
+       text="Logout"      
+      />
     </div>
   );
 };

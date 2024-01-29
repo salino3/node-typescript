@@ -63,7 +63,7 @@ export const DeleteProfileByAdmin: React.FC = () => {
           nameValue={user?.password}
           pl="Insert your password.."
         />
-        <Button text="Submit" type="submit" />
+        <Button disabled text="Submit" type="submit" />
       </form>
     </div>
   );

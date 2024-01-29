@@ -1,5 +1,5 @@
 import React from "react";
-import { Users, UsersFunctions } from "@/core";
+import { Users, UsersFunctions, areAllParamsFilled } from "@/core";
 import { Button, FormField } from "@/common";
 import { GenderFormField } from "@/common-app";
 import * as classes from "./update-user.styles";
@@ -81,7 +81,12 @@ const { updateUser } = UsersFunctions();
           required
           genders={genders}
         />
-        <Button text="Submit" type="submit" myStyle={classes.btnForm} />
+        <Button
+          disabled={areAllParamsFilled(newUser)}
+          text="Submit"
+          type="submit"
+          myStyle={classes.btnForm}
+        />
       </form>
     </div>
   );

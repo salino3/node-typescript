@@ -60,7 +60,12 @@ export const LoginForm: React.FC = () => {
           name="password"
           type="password"
         />
-        <Button text="Submit" type="submit" myStyle={classes.btnForm} />
+        <Button
+          disabled={!!userData?.email && !!userData?.password}
+          text="Submit"
+          type="submit"
+          myStyle={classes.btnForm}
+        />
       </form>
     </div>
   );

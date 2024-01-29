@@ -10,6 +10,7 @@ interface LoginData {
     password: string;
 };
 
+//
 const getToken = (): string | null => {
   const storedUserId = localStorage.getItem("my-identification-userId");
   return document.cookie.replace(
@@ -18,6 +19,11 @@ const getToken = (): string | null => {
     ),
     "$1"
   );
+};
+
+//
+export const areAllParamsFilled = (obj: Users) => {
+        return Object.values(obj).every((value) => value !== null && value !== undefined && value !== '');
 };
 
 //
@@ -180,6 +186,7 @@ const logoutUser = async () => {
     deleteUser,
     deleteUserByAdmin,
     getToken,
+    areAllParamsFilled,
     // status user
     loginUser,
     logoutUser
