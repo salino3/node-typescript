@@ -14,7 +14,7 @@ export const ItemsForm: React.FC<Props> = (props) => {
         htmlFor="user"
         className="text-success px-1 labelproduct rounded"
       >
-        Text number or title item
+        Search user with ID or email
       </label>
       <br />
       <input

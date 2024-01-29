@@ -1,9 +1,6 @@
 import React, { useContext } from "react";
-// import { GlobalData, MyState, ProductInfo } from "../core";
-
 import { GlobalContext, MyState, Users } from "@/core";
 import * as classes from './card-search-user-input.styles';
-// import "./stylesComponents.scss";
 
 interface Props {
   first: string;
@@ -23,7 +20,7 @@ export const CardInput: React.FC<Props> = (props) => {
   return (
     <>
       {!users
-        ? "Loading"
+        ? "Loading.."
         : users
             .filter((user: Users) => {
               let searchTerm = "";
