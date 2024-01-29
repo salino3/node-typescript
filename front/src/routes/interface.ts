@@ -4,6 +4,7 @@ export interface Routes {
   createUser: string;
   adminPage: string;
   updateUser: string;
+  deleteUser: string;
   updatePassword: string;
 };
 
@@ -13,5 +14,6 @@ export const SwitchRoutes: Routes = {
   createUser: "/my-web/create-user",
   adminPage: "/my-web/admin-page",
   updateUser: "/my-web/private/update-user",
+  deleteUser: "/my-web/private/delete-user",
   updatePassword: "/my-web/private/update-password",
 };
