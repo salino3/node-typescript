@@ -9,6 +9,7 @@ interface Props {
   divHeight?: number;
   btnHeight?: number;
   divWidth?: number;
+  disabled: boolean | undefined;
   click?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 };
 
@@ -20,6 +21,7 @@ export const Button: React.FC<Props> = (props) => {
     btnHeight = 30,
     divHeight = 30,
     divWidth = 70,
+    disabled,
     click,
   } = props;
 
@@ -28,7 +30,9 @@ export const Button: React.FC<Props> = (props) => {
       <button
         type={type}
         onClick={click}
-        className={classes.btn(btnHeight)} >
+        className={classes.btn(btnHeight, disabled)}
+        disabled={disabled ? false : true}
+      >
         {text}
       </button>
     </div>

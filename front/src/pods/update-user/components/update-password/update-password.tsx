@@ -52,7 +52,12 @@ export const UpdatePassword: React.FC<Props> = (props) => {
           type="password"
           pl="Confirm your new Password"
         />
-        <Button text="Submit" type="submit" myStyle={classes.btnForm} />
+        <Button
+          disabled={!!newUser.password && !!confirmNewPassword}
+          text="Submit"
+          type="submit"
+          myStyle={classes.btnForm}
+        />
       </form>
     </div>
   );

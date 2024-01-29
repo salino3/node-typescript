@@ -66,10 +66,12 @@ export const CardAllUsers: React.FC<Props> = (props) => {
       (currentlyUserData && currentlyUserData?.role === "admin") ? (
         <div className={classes.boxBtns}>
           <Button
+            disabled
             text="Update"
             click={() => navigate(`${SwitchRoutes.updateUser}/${user.id}`)}
           />
           <Button
+            disabled
             text="Delete"
             click={() => navigate(`${SwitchRoutes.deleteUser}/${user.id}`)}
           />

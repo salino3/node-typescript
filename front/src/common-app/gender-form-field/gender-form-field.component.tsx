@@ -14,13 +14,10 @@ interface Props {
 
 
 
-
 export const GenderFormField: React.FC<Props> = (props) => {
   const { name, genders, required, handleChange, handleClick, br = true, nameValue } = props;
 
   const { capitalizing } = React.useContext<MyState>(GlobalContext);
-
-
 
 
   return (

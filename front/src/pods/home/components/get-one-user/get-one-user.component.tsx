@@ -30,7 +30,7 @@ export const GetOneUser: React.FC = () => {
           pl="Insert a ID of a user.."
           handleChange={(event) => setUserID(event?.target.value)}
         />
-        <Button text="Send" type="submit" />
+        <Button disabled text="Send" type="submit" />
       </form>
       <div>
         <h3>
@@ -41,7 +41,9 @@ export const GetOneUser: React.FC = () => {
           {" "}
           Email: <span>{user && user?.email}</span>
         </h3>
-        <h3>Name: <span>{JSON.stringify(user)}</span></h3>
+        <h3>
+          Name: <span>{JSON.stringify(user)}</span>
+        </h3>
       </div>
     </div>
   );
