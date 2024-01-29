@@ -3,6 +3,7 @@ import { css } from "@emotion/css";
 
 export const container = (divHeight: number, divWidth: number) => css`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: ${divHeight}px;

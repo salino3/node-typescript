@@ -1,7 +1,7 @@
 import React from 'react';
 import { GlobalContext, MyState, UsersAllData } from '@/core';
 import { CardAllUsers } from '@/common-app';
-import { SearchUserList } from '@/common';
+import { Button, SearchUserList } from '@/common';
 import * as classes from './all-user.styles';
 
 export const AllUsers: React.FC = () => {
@@ -13,12 +13,16 @@ export const AllUsers: React.FC = () => {
 
   return (
     <div className={classes.container}>
-
-     <SearchUserList />
-     <br />
-  
-      <h2>Users List</h2>
-      <button className={classes.btnPlus10} onClick={() => setcounter(counter + 10)}>+ 10</button>
+      <SearchUserList />
+      <br />
+      <h2 className={classes.titleList}>Users List</h2>
+      <br />
+      <Button
+        click={() => setcounter(counter + 10)}
+        disabled
+        text="+ 10"
+        myStyle={classes.btnPlus10}
+      />
       <div>
         {!users || users.length == 0 ? (
           <h3>there are no users..</h3>
@@ -31,7 +35,12 @@ export const AllUsers: React.FC = () => {
             ))
         )}
       </div>
-      <button className={classes.btnPlus10}  onClick={() => setcounter(counter + 10)}>+ 10</button>
+      <Button
+        click={() => setcounter(counter + 10)}
+        disabled
+        text="+ 10"
+        myStyle={classes.btnPlus10}
+      />
     </div>
   );
 }
