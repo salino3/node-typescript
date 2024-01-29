@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UsersAllData } from '@/core';
+import { GlobalContext, MyState, UsersAllData } from '@/core';
 import { SwitchRoutes } from '@/routes';
 import { Button } from '@/common/button';
 import * as classes from './card-all-users.styles';
@@ -11,6 +11,8 @@ interface Props {
 
 export const CardAllUsers: React.FC<Props> = (props) => {
     const {user} = props;
+
+    const { currentlyUserData} = React.useContext<MyState>(GlobalContext);
 
     const navigate = useNavigate();
 
@@ -61,16 +63,16 @@ export const CardAllUsers: React.FC<Props> = (props) => {
           <span className={classes.spanValue}>{user?.job}</span>
         </h3>
       </div>
+ {currentlyUserData && currentlyUserData?.userId === user?.id || currentlyUserData && currentlyUserData?.role === "admin" ? 
       <div className={classes.boxBtns}>
         <Button text="Update" 
-        
         click={() => navigate(`${SwitchRoutes.updateUser}/${user.id}`)}
         />
-
         <Button
           text="Delete"
         />
-      </div>
+      </div>  : "" }
+          
     </div>
   );
 }

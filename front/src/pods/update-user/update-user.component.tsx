@@ -7,7 +7,7 @@ import * as classes from './update-user.styles';
 
 export const UpdateUser: React.FC = () => {
 
-    const { getUserData, state } = React.useContext<MyState>(GlobalContext);
+    const { currentlyUserData, getUserData, state } = React.useContext<MyState>(GlobalContext);
     const { user } = state;
 
     const { id } = useParams();
@@ -37,11 +37,11 @@ export const UpdateUser: React.FC = () => {
     <classes.Div>
       <Header />
       <h2>{changeDataOrPsw ? "Update your Profile" : "Update your Password"}</h2>
-      <h4 className={classes.titleH4} onClick={() => setChangeDataOrPsw(!changeDataOrPsw)}>
+   {currentlyUserData && currentlyUserData?.userId === user?.id || currentlyUserData && currentlyUserData?.role === "admin" ?  <h4 className={classes.titleH4} onClick={() => setChangeDataOrPsw(!changeDataOrPsw)}>
         <Link to={""}>
           {changeDataOrPsw ? "Update Password" : "Update user data"}
         </Link>
-      </h4>
+      </h4> : ""}
       {changeDataOrPsw ? (
         <UpdateUserData newUser={newUser} handleChange={handleChange} />
       ) : (
