@@ -1,20 +1,20 @@
 import React, { useContext } from "react";
 import { GlobalContext, MyState, Users } from "@/core";
-import * as classes from './card-search-user-input.styles';
+import * as classes from "./card-search-user-input.styles";
 
 interface Props {
-  first: string;
-  setFirst: React.Dispatch<React.SetStateAction<any>>;
-}
+  searchingUser: string;
+  setSearchingUser: React.Dispatch<React.SetStateAction<any>>;
+};
 
 export const CardInput: React.FC<Props> = (props) => {
-  const { first, setFirst } = props;
+  const { searchingUser, setSearchingUser } = props;
 
   const { state } = useContext<MyState>(GlobalContext);
   const { users } = state;
 
   const onSearchCard = (event: string | undefined): void => {
-    setFirst(event?.toString());
+    setSearchingUser(event?.toString());
   };
 
   return (
@@ -24,13 +24,14 @@ export const CardInput: React.FC<Props> = (props) => {
         : users
             .filter((user: Users) => {
               let searchTerm = "";
-              let x: string = first?.toLowerCase() || "";
+              let x: string = searchingUser?.toLowerCase() || "";
               searchTerm = x || "";
               const thetitle: string = user.email.toLowerCase() || "";
               const theid: string | undefined = user?.id;
 
               return (
-                searchTerm && theid &&
+                searchTerm &&
+                theid &&
                 (theid.includes(searchTerm) || thetitle.includes(searchTerm)) &&
                 (thetitle || theid)
               );

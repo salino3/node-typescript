@@ -15,6 +15,13 @@ export const form = css`
  }
 `;
 
+export const inputStyles = css`
+
+ input {
+   width: 250px;
+  }
+`;
+
 export const divCard = css`
   text-align: start;
   position: absolute;
