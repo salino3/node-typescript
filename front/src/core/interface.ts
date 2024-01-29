@@ -46,6 +46,7 @@ export interface Users {
 
 export interface DecodedToken {
   userId: string;
+  name: string;
   email: string;
   role: string;
   iat: number;

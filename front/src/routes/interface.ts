@@ -4,14 +4,16 @@ export interface Routes {
   createUser: string;
   adminPage: string;
   updateUser: string;
+  deleteUser: string;
   updatePassword: string;
 };
 
 export const SwitchRoutes: Routes = {
-  root: "/vite-react",
-  dashboard: "/vite-react/private",
-  createUser: "/vite-react/create-user",
-  adminPage: "/vite-react/admin-page",
-  updateUser: "/vite-react/private/update-user",
-  updatePassword: "/vite-react/private/update-password",
+  root: "/my-web",
+  dashboard: "/my-web/private",
+  createUser: "/my-web/create-user",
+  adminPage: "/my-web/admin-page",
+  updateUser: "/my-web/private/update-user",
+  deleteUser: "/my-web/private/delete-user",
+  updatePassword: "/my-web/private/update-password",
 };

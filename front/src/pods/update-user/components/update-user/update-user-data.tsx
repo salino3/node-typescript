@@ -32,7 +32,6 @@ const { updateUser } = UsersFunctions();
    ) => {
      event.preventDefault();
 
-     console.log("Update->", newUser)
      updateUser(newUser);
   };
 

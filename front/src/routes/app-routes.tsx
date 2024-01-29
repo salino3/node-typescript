@@ -1,6 +1,6 @@
 import React from 'react';
 import {Routes, Route} from 'react-router-dom';
-import { CreateUserLayout, DashboardLayout, HomeLayout, UpdateUserLayout } from '@/layouts';
+import { CreateUserLayout, DashboardLayout, DeleteUserLayout, HomeLayout, UpdateUserLayout } from '@/layouts';
 import { AdminRoutes, PrivateRoutes, PublicRoutes } from './router-path';
 import { SwitchRoutes } from './interface';
 
@@ -19,9 +19,9 @@ export const AppRoutes: React.FC = () => {
         {/* Private Routes */}
         <Route path={SwitchRoutes?.dashboard} element={<PrivateRoutes />}>
           <Route path={SwitchRoutes?.dashboard} element={<DashboardLayout />} />
-          <Route
-            path={SwitchRoutes?.updateUser + "/:id"} element={<UpdateUserLayout />}
-          />
+          <Route path={SwitchRoutes?.updateUser + "/:id"} element={<UpdateUserLayout />}/>
+          <Route path={SwitchRoutes?.deleteUser + "/:id"} element={<DeleteUserLayout />}/>
+          
         </Route>
         {/* Admin Routes */}
         <Route path={SwitchRoutes.adminPage} element={<AdminRoutes />}>
