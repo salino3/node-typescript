@@ -8,10 +8,10 @@ import './index'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-   <MyProvider>
     <BrowserRouter>
-     <App />
+     <MyProvider>
+      <App />
+     </MyProvider>
     </BrowserRouter>
-   </MyProvider>
   </React.StrictMode>,
 )

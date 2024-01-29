@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import jwtDecode from "jwt-decode";
 import { DecodedToken, GlobalContext, MyReducer, UsersFunctions, initialState } from '.';
+import { SwitchRoutes } from '@/routes';
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -11,6 +13,8 @@ export const MyProvider: React.FC<Props> = ({children}) => {
 
     const [state, dispatch] = React.useReducer(MyReducer, initialState);
     const { getToken } = UsersFunctions();
+
+    const navigate = useNavigate();
 
 
   const getUsers = React.useCallback(() => {
@@ -45,6 +49,7 @@ export const MyProvider: React.FC<Props> = ({children}) => {
       })
       .catch((error) => {
         console.error(error);
+        navigate(SwitchRoutes.dashboard);
       });
   }, []);
 
