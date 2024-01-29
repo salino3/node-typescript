@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GlobalContext, MyState } from '@/core';
 import { Button } from '@/common/button';
-import { Logout } from '@/pods/home/components';
 import { SwitchRoutes } from '@/routes';
+import { Logout } from '../logout-button';
 import * as classes from './header.styles';
 
 
