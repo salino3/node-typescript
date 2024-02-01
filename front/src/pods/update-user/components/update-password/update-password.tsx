@@ -11,7 +11,7 @@ interface Props {
 export const UpdatePassword: React.FC<Props> = (props) => {
   const { newUser, handleChange } = props;
 
-  const { updateUser } = UsersFunctions();
+  const { updateUserPassword } = UsersFunctions();
 
   const [confirmNewPassword, setConfirmNewPassword] = React.useState<string>("");
 
@@ -26,7 +26,7 @@ export const UpdatePassword: React.FC<Props> = (props) => {
 
      console.log("Update->", newUser)
      if(newUser?.password === confirmNewPassword){
-      updateUser(newUser);
+      updateUserPassword(newUser);
     } else {
       alert("The passwords do not match");
     };
