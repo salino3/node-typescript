@@ -125,7 +125,11 @@ const loginUser = async (
   userData: LoginData,
   setUserData: (value: React.SetStateAction<LoginData>) => void
 ) => {
-  await Axios.post(`${import.meta.env.VITE_APP_BASE_URL}/login`, userData)
+  await Axios.post(`${import.meta.env.VITE_APP_BASE_URL}/login`, userData
+  // ,{
+  //   withCredentials: true
+  // }
+  )
     .then((response) => {
       const { token, userId } = response.data;
 
