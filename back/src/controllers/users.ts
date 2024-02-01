@@ -144,14 +144,15 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
 
      const decodedToken: any = jwt.verify(token, `${process.env.SECRET_KEY}`);
 
-     if (decodedToken.userId !== id && decodedToken.role !== "admin") {
+     if (decodedToken.role !== "admin"){
+
+      if (decodedToken.userId !== id) {
        res.status(403).json({
          message: "Forbidden: You don't have permission to update this user",
        });
        return;
-     };
-
-     //
+      }
+     }
 
        // Verify if new email is already in use
        if (userData.email !== existingUser.email) {
@@ -165,13 +166,11 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
        };
      }
 
-     // Encrypting password of req.body
-     if (userData.password) {
-       const hashedPassword = await hashPassword(userData.password);
-       userData.password = hashedPassword;
-     }
-
-     await existingUser.update({ ...userData, isAdult: userData.age >= 18 });
+     await existingUser.update({
+       ...userData,
+       password: existingUser?.password,
+       isAdult: userData.age >= 18,
+     });
 
      res.status(200).json({ message: "User update successfully" });
    } catch (error: any) {
@@ -186,6 +185,64 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
        }
    };
 };
+
+
+export const updateUserPassword = async ( req: Request, res: Response): Promise<void> => {
+  const id = req.params.id;
+  const token: string | undefined = req.headers.authorization?.split(" ")[1];
+  const userData = req.body;
+
+  try {
+    const existingUser = await UserModel.findByPk(id);
+
+    if (!existingUser) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    //
+    if (!token) {
+      res.status(403).json({
+        message: "Forbidden: Token not provided",
+      });
+      return;
+    }
+
+    const decodedToken: any = jwt.verify(token, `${process.env.SECRET_KEY}`);
+
+    if (decodedToken.role !== "admin"){
+
+     if (decodedToken.userId !== id) {
+       res.status(403).json({
+         message: "Forbidden: You don't have permission to update this user",
+       });
+       return;
+     }
+    }
+
+
+    if (userData.password) {
+        // Encrypting password of req.body
+        const hashedPassword = await hashPassword(userData.password);
+        userData.password = hashedPassword;
+      }
+      
+      await existingUser.update({ password: userData.password });
+
+    res.status(200).json({ message: "User update successfully" });
+  } catch (error: any) {
+    console.error(error);
+
+    if (error.name === "SequelizeValidationError") {
+      res
+        .status(400)
+        .json({ message: "Error: Validation failed", errors: error.errors });
+    } else {
+      res.status(500).json({ message: "Error: Failed to update user" });
+    }
+  }
+};
+
 
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
 
